@@ -257,11 +257,13 @@ export const QRPatient = asyncHandler(async (req, res, next) => {
 
 //Hardware Rate
 export const Rates = asyncHandler(async (req, res, next) => {
-    const { heartbeat, motionRate } = req.body
+    const { heartbeat, motionRateX,motionRateY,motionRateZ } = req.body
    const patient = await patientModel.findById(req.patient._id)
 
     patient.heartbeat = heartbeat
-    patient.motionRate = motionRate
+    patient.motionRateX = motionRateX
+    patient.motionRateY = motionRateY
+    patient.motionRateZ = motionRateZ
     await patient.save()
 
 

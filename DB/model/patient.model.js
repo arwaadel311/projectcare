@@ -17,7 +17,9 @@ const patientSchema = new Schema({
   phone_one: {   type: String,required: true,},
   phone_two: {type: String,required: true,},
   heartbeat:{type:Number},
-  motionRate:{type:Number},
+  motionRateX:{type:Number},
+  motionRateY:{type:Number},
+  motionRateZ:{type:Number},
   //location
   lat:{type:String},
   lng:{type:String},
