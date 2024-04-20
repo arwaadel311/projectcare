@@ -255,8 +255,8 @@ export const QRPatient = asyncHandler(async (req, res, next) => {
 
 
 
-//Hardware Rate
-export const Rates = asyncHandler(async (req, res, next) => {
+//post Hardware Rate
+export const Rate = asyncHandler(async (req, res, next) => {
     const { heartbeat, motionRateX,motionRateY,motionRateZ } = req.body
    
     const {patientId}=req.params
@@ -273,6 +273,21 @@ export const Rates = asyncHandler(async (req, res, next) => {
 
 
     return res.status(200).json({ message: "Done" ,heartbeat ,motionRateX,motionRateY, motionRateZ })
+
+})
+//get rates
+export const Rates = asyncHandler(async (req, res, next) => {
+   
+    const {patientId}=req.params
+    const patient = await patientModel.findById(patientId)
+    if (!patient) {
+        return next(new Error("Not ooregister account", { cause: 404 }))
+    }
+
+    
+
+
+    return res.status(200).json({ message: "Done" ,HR:patient.heartbeat ,MX:motionRateX,MY:motionRateY,MZ:motionRateZ })
 
 })
 
