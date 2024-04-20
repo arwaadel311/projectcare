@@ -88,7 +88,7 @@ patientController.resetPassword)
 
 router.post("/rate/:patientId",patientController.Rates)
 
-//router.get("/rate",authPatient,patientController.Rates)
+router.get("/rate",authPatient,patientController.Rates)
 
 
 export default router
