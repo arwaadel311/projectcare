@@ -262,7 +262,7 @@ export const Rate = asyncHandler(async (req, res, next) => {
     const {patientId}=req.params
     const patient = await patientModel.findById(patientId)
     if (!patient) {
-        return next(new Error("Not ooregister account", { cause: 404 }))
+        return next(new Error("Not register account", { cause: 404 }))
     }
 
     patient.heartbeat = heartbeat
