@@ -271,7 +271,7 @@ export const Rate = asyncHandler(async (req, res, next) => {
     await patient.save()
 
 
-    return res.status(200).json({ message: "Done" ,heartRate motionRate })
+    return res.status(200).json({ message: "Done" ,heartRate ,motionRate })
 
 })
 //get rates
