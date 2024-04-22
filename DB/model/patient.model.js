@@ -16,10 +16,9 @@ const patientSchema = new Schema({
   EmailPasswordCode:{type:Number,default:null},
   phone_one: {   type: String,required: true,},
   phone_two: {type: String,required: true,},
-  heartbeat:{type:Number},
-  motionRateX:{type:Number},
-  motionRateY:{type:Number},
-  motionRateZ:{type:Number},
+  heartRate:{type:Number},
+  motionRate:{type:Number},
+ 
   //location
   lat:{type:String},
   lng:{type:String},
