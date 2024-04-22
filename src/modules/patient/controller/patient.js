@@ -258,22 +258,18 @@ export const QRPatient = asyncHandler(async (req, res, next) => {
 //post Hardware Rate
 export const Rate = asyncHandler(async (req, res, next) => {
     const { heartRate, motionRate } = req.body
-   
-    const {patientId}=req.params
+    //const {patientId}=req.params
     const patient = await patientModel.findById(patientId)
     if (!patient) {
         return next(new Error("Not register account", { cause: 404 }))
     }
-
     patient.heartRate = heartRate
     patient.motionRate = motionRate
-   
     await patient.save()
-
-
     return res.status(200).json({ message: "Done" ,heartRate ,motionRate })
 
 })
+
 //get rates
 export const Rates = asyncHandler(async (req, res, next) => {
    
