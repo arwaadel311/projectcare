@@ -86,7 +86,7 @@ patientController.resetPassword)
 
 
 
-router.post("/rate",patientController.Rate)
+router.post("/rate/:patientId",patientController.Rate)
 
 router.get("/rate/:patientId",patientController.Rates)
 
