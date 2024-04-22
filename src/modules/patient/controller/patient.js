@@ -286,7 +286,7 @@ export const Rates = asyncHandler(async (req, res, next) => {
     
 
 
-    return res.status(200).json({ message: "Done" ,HR:patient.heartbeat ,MX:patient.motionRateX,MY:patient.motionRateY,MZ:patient.motionRateZ })
+    return res.status(200).json({ message: "Done" ,HR:patient.heartRate ,MR:patient.motionRate})
 
 })
 
