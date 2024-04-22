@@ -259,10 +259,10 @@ export const QRPatient = asyncHandler(async (req, res, next) => {
 export const Rate = asyncHandler(async (req, res, next) => {
     const { heartRate, motionRate } = req.body
     //const {patientId}=req.params
-    const patient = await patientModel.findById(req.patient._id)
-    if (!patient) {
-        return next(new Error("Not register account", { cause: 404 }))
-    }
+    // const patient = await patientModel.findById(req.patient._id)
+    // if (!patient) {
+    //     return next(new Error("Not register account", { cause: 404 }))
+    // }
     patient.heartRate = heartRate
     patient.motionRate = motionRate
     await patient.save()
