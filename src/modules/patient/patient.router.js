@@ -11,10 +11,15 @@ const router = Router()
 router.get("/",patientController.patients)
 //get patient by Id
 router.get("/:id",patientController.patientById)
+
 //update patient
-router.put('/update/:id', patientController.updatePatient);
+//router.put('/update/:patientId', patientController.updatePatient);
+router.put('/update',authPatient, patientController.updatePatient);
+
+
 //delete patient
 router.delete('/:id', patientController.deletePatient);
+//router.delete('/delete',authPatient, patientController.deletePatient);
 
 //signup
 router.post('/signupPatient',
@@ -40,22 +45,6 @@ router.get("/home/profile",authPatient,patientController.profilePatient)
 
 router.patch("/patientQR",authPatient,patientController.QRPatient)
 
-//router.patch("/patientQRGuardian",authPatient,patientController.GuardianPatient)
-
-//router.get("/pp/patientQR",patientController.DoctorPatient)
-
-
-
-
-
-
-
-//router.get("/p/QR",authPatient,patientController.patientQr)
-
-
-router.get('/NewConfirmEmail/:token',
-validation(validators.token),
-patientController.generateRefreshToken)
 
 router.patch("/sendCodeEmail",
 validation(validators.sendCodeEmailAgain),
@@ -74,21 +63,27 @@ validation(validators.CodeForgetPasswordPatient),
 patientController.CodeForgetPasswordPatient)
 
 
-router.patch("/newPassword",
+router.patch("/reset/newPassword",
 
 validation(validators.ForgetPassword),
 patientController.resetPassword)
 
+
+
+
+//router.patch("/patientQRGuardian",authPatient,patientController.GuardianPatient)
+//router.get("/pp/patientQR",patientController.DoctorPatient)
+//router.get("/p/QR",authPatient,patientController.patientQr)
+// router.get('/NewConfirmEmail/:token',
+// validation(validators.token),
+// patientController.generateRefreshToken)
 // router.patch("/updateForget/PasswordPatient",
 // validation(validators.updateForgetPassword),
 
 // patientController.updatePassword)
+// router.post("/rate/:patientId",patientController.Rate)
 
-
-
-router.post("/rate/:patientId",patientController.Rate)
-
-router.get("/rate/:patientId",patientController.Rates)
+// router.get("/rate/:patientId",patientController.Rates)
 
 
 export default router

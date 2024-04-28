@@ -12,11 +12,13 @@ const router = Router()
 router.get("/",doctorController.doctors)
 //get doctor by id
 router.get("/getById/:id",doctorController.doctorById)
-//update doctor
-router.put('update/:id',doctorController.updateDoctor);
+// //update doctor
+// router.put('/update/:doctorId',doctorController.updateDoctor);
+router.put('/update',authDoctor,doctorController.updateDoctor);
 //delete doctor
 router.delete('/:doctorId', doctorController.deleteDoctor);
 
+//router.delete('/delete', authDoctor,doctorController.deleteDoctor);
 
 //profile
 router.get("/home/profile",
@@ -26,15 +28,18 @@ authDoctor,doctorController.profile)
 
 
 
-//add patient
-router.patch("/:patientId",
-authDoctor,doctorController.addPatient)
+// //add patient
+// router.patch("/:patientId",
+// authDoctor,doctorController.addPatient)
+//router.get("/getPatients/pp/:doctorId",authDoctor,doctorController.getDataPatient)
 
 
 //get data after scan qrPatient 
-//router.get("/getPatients/pp/:doctorId",authDoctor,doctorController.getDataPatient)
 router.get("/getPatients",authDoctor,doctorController.getDataPatients)
 
+router.get("/getHistory",authDoctor,doctorController.getHistorySeizures)
+
+router.get("/getHistory/:patientId",authDoctor,doctorController.getHistorySeizure)
 router.get("/getOnePatient/:patientId",authDoctor,doctorController.getDataOnePatient)
 
 

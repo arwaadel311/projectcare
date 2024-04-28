@@ -5,6 +5,7 @@ import * as adminController from "./controller/admin.js"
 import { validation } from "../../middleware/validation.js";
 
 import * as validators from './admin.validation.js'
+import { authAdmin } from "../../middleware/auth.js";
 
 
 const router = Router()
@@ -18,22 +19,22 @@ validation(validators.loginAdmin),
 adminController.loginAdmin)
 
 //update isApproved true 
-router.put('/approve/adminTrue/:doctorId',
+router.put('/approve/adminTrue/:doctorId',  
 adminController.approveAdmin)
 
 
 //get all doctor isApproved false
 
-router.get('/isApprovedFalse',
+router.get('/isApprovedFalse',authAdmin,
 adminController.GetAllDoctorsApprovedFalse)
 
 
 
 
 
-// //signUp
-// router.post('/signUpAdmin',
-// //validation(validators.Admin),
-// adminController.signUpAdmin)
+//signUp
+router.post('/signUpAdmin',
+//validation(validators.Admin),
+adminController.signUpAdmin)
 
 export default router

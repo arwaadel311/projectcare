@@ -7,10 +7,12 @@ import doctorModel from '../../../../DB/model/doctor.model.js'
 import patientModel from '../../../../DB/model/patient.model.js'
 import cloudinary from '../../../utils/cloudinary.js'
 import adminModel from '../../../../DB/model/admin.model.js'
+import seizureModel from "../../../../DB/model/seizure.model.js";
 
 //all doctors
 export const doctors = async (req, res, next) => {
-    const doctors = await doctorModel.find()
+    const doctors = await doctorModel.find().select('-password -confirmEmail -emailCode -verifyEmail -EmailPasswordCode -isLogin')
+    .populate({ path: 'patientId', select: 'firstName lastName email  phone_one' })
     return res.status(200).json({ message: "Done", doctors })
 }
 
@@ -21,12 +23,26 @@ export const doctorById = asyncHandler(async (req, res, next) => {
     if (!doctor) { return next(new Error(`IN-valid doctorId `, { cause: 400 })) }
     return res.status(200).json({ message: "Done", doctor })
 })
+
 //update doctor
 export const updateDoctor = asyncHandler(async (req, res, next) => {
-    const doctor = await doctorModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!doctor) { return next(new Error(`doctor not found `, { cause: 404 })) }
+    const doctor = await doctorModel.findByIdAndUpdate(req.doctor._id, req.body, { new: true });
+    if (!doctor) {
+        return next(new Error(`doctor not found `, { cause: 404 }))
+    }
     return res.status(200).json({ message: "Done updated" })
 })
+
+// //update doctor by id
+
+// export const updateDoctor = asyncHandler(async (req, res, next) => {
+//     const doctor = await doctorModel.findByIdAndUpdate(req.params.doctorId, req.body, { new: true });
+//     if (!doctor) {
+//         return next(new Error(`doctor not found `, { cause: 404 }))
+//     }
+//     return res.status(200).json({ message: "Done updated" })
+// })
+
 //delete doctor
 export const deleteDoctor = asyncHandler(async (req, res, next) => {
     const { doctorId } = req.params
@@ -292,16 +308,17 @@ export const loginDoctor = asyncHandler(async (req, res, next) => {
     }
     const access_Token = generateToken({
         payload: { id: doctor._id },
-        expiresIn: 60 * 30
+        //expiresIn: 60 * 30 //1h
+        expiresIn: 60 * 60 * 24 * 30 //1 month
     })
     const refresh_token = generateToken({
         payload: { id: doctor._id },
-        expiresIn: 60 * 60 * 24 * 365
+        expiresIn: 60 * 60 * 24 * 365 //1 year
     })
     const doctorID_token = { id: doctor._id }
 
     doctor.isLogin = true
-    
+
     doctor.status = 'online'
     await doctor.save()
     return res.status(200).json({
@@ -315,50 +332,45 @@ export const loginDoctor = asyncHandler(async (req, res, next) => {
 
 //logout
 export const logoutDoctor = async (req, res, next) => {
-   
-    const doctor = await doctorModel.updateOne({_id:req.doctor._id },{status:'offline',isLogin:'false'})
-    
-    return res.status(200).json({ message: "Done is logout"})
+
+    const doctor = await doctorModel.updateOne({ _id: req.doctor._id }, { status: 'offline', isLogin: 'false' })
+
+    return res.status(200).json({ message: "Done is logout" })
 }
 
 //profile
 export const profile = asyncHandler(async (req, res, next) => {
 
     const doctor = await doctorModel.findById(req.doctor._id)
-
-    return res.json({
-        message: "Done",
-        doctor
-    })
-
+    return res.status(200).json({ message: "profile",doctor })
 
 })
 
 
 
-//addPatient
-export const addPatient = asyncHandler(async (req, res, next) => {
-    const { patientId } = req.params;
-    
-    const patient = await patientModel.findById(patientId)
-    if (!patient) {
-        return next(new Error("Not llregister account", { cause: 404 }))
-    }
-    if (!patient.isLogin) {
-        return next(new Error("No login", { cause: 404 }))
-    
-    }
-    const doctor = await doctorModel.findById(req.doctor._id)
-    patient.doctorId = req.doctor._id
-    await patient.save()
-    return res.status(201).json({ message: 'Done', patient })
-})
+// //addPatient
+// export const addPatient = asyncHandler(async (req, res, next) => {
+//     const { patientId } = req.params;
+
+//     const patient = await patientModel.findById(patientId)
+//     if (!patient) {
+//         return next(new Error("Not llregister account", { cause: 404 }))
+//     }
+//     if (!patient.isLogin) {
+//         return next(new Error("No login", { cause: 404 }))
+
+//     }
+//     const doctor = await doctorModel.findById(req.doctor._id)
+//     patient.doctorId = req.doctor._id
+//     await patient.save()
+//     return res.status(201).json({ message: 'Done', patient })
+// })
 
 //send code email
 export const sendCodeEmail = asyncHandler(async (req, res, next) => {
     const { email } = req.body
     const emailCode = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)
-    const doctor = await doctorModel.findOneAndUpdate({  email: email.toLowerCase() }, { emailCode })
+    const doctor = await doctorModel.findOneAndUpdate({ email: email.toLowerCase() }, { emailCode })
     if (!doctor) {
         return next(new Error('In-valid account', { cause: 400 }))
 
@@ -453,7 +465,7 @@ export const sendCodeEmail = asyncHandler(async (req, res, next) => {
 //confirm email
 
 export const confirmEmailDoctor = asyncHandler(async (req, res, next) => {
-    const {  emailCode } = req.body
+    const { emailCode } = req.body
 
     const doctor = await doctorModel.findOne({ emailCode })
     if (!doctor) {
@@ -480,7 +492,7 @@ export const confirmEmailDoctor = asyncHandler(async (req, res, next) => {
 
 export const sendCodeDoctor = asyncHandler(async (req, res, next) => {
     const { email } = req.body
-    const doctor = await doctorModel.findOne({  email: email.toLowerCase() })
+    const doctor = await doctorModel.findOne({ email: email.toLowerCase() })
     if (!doctor) {
         return next(new Error('In-valid account', { cause: 400 }))
     }
@@ -574,7 +586,7 @@ export const sendCodeDoctor = asyncHandler(async (req, res, next) => {
 
 //check your email verifyCode forgetPassword
 export const CodeForgetPasswordDoctor = asyncHandler(async (req, res, next) => {
-    const {  EmailPasswordCode } = req.body
+    const { EmailPasswordCode } = req.body
 
     const doctor = await doctorModel.findOne({ EmailPasswordCode })
     if (!doctor) {
@@ -593,9 +605,9 @@ export const CodeForgetPasswordDoctor = asyncHandler(async (req, res, next) => {
 // forgetPassword set a new password
 export const resetPassword = asyncHandler(async (req, res, next) => {
     const { newPassword } = req.body;
-    
-    
-    const doctor = await doctorModel.findOne({ verifyEmail:true })
+
+
+    const doctor = await doctorModel.findOne({ verifyEmail: true })
     if (!doctor) {
         return next(new Error('In-valid account', { cause: 400 }))
     }
@@ -611,24 +623,56 @@ export const resetPassword = asyncHandler(async (req, res, next) => {
 
 export const getDataPatients = asyncHandler(async (req, res, next) => {
 
-     const patientDocID = await patientModel.find({doctorId:req.doctor._id})
+    const patientDocID = await patientModel.find({ doctorId: req.doctor._id })
+        .select("firstName email ")
     return res.status(200).json({ message: "Done", patientDocID })
 
 })
 
+export const getHistorySeizures = asyncHandler(async (req, res, next) => {
+
+    // const patientDocID = await patientModel.find({ doctorId: req.doctor._id })
+    // //return res.status(200).json({ message: "Done", patientDocID })
+    const patientSeizure = await patientModel.find({ doctorId: req.doctor._id })
+        .select("firstName email seizureHistory ")
+        .populate({ path: 'seizureHistory', select: ' heartRate motionRate Time lng lat' })
+
+    return res.status(200).json({ message: "Done", patientSeizure })
+})
+
+
+export const getHistorySeizure = asyncHandler(async (req, res, next) => {
+const {patientId}=req.params
+    // const patientDocID = await patientModel.find({ doctorId: req.doctor._id })
+    // //return res.status(200).json({ message: "Done", patientDocID })
+    const patientSeizure = await patientModel.findById(patientId)
+        .select("firstName email seizureHistory ")
+        .populate({ path: 'seizureHistory', select: ' heartRate motionRate Time lng lat' })
+
+    return res.status(200).json({ message: "Done", patientSeizure })
+})
+
+
+
 export const getDataOnePatient = asyncHandler(async (req, res, next) => {
 
-    
-    const patientDocID = await patientModel.findById(req.params.patientId)
-    if (!patientDocID) {
+    const { patientId } = req.params
+    const OnePatientDocID = await patientModel.findById(patientId)
+    .select('-password -confirmEmail -emailCode -verifyEmail -EmailPasswordCode ')
+   // .populate({ path: 'patientId', select: 'firstName lastName email  phone_one' })
+    if (!OnePatientDocID) {
         return next(new Error("Not register account", { cause: 404 }))
     }
-    if (!patientDocID.isLogin) {
+    if (!OnePatientDocID.isLogin) {
         return next(new Error("No login", { cause: 404 }))
-    
     }
-   
-   return res.status(200).json({ message: "Done", patientDocID })
+
+    if (!OnePatientDocID.doctorId) {
+        return next(new Error("No patient follow", { cause: 404 }))
+    }
+
+ 
+        return res.status(200).json({ message: "Done" ,OnePatientDocID})
 
 })
 
@@ -643,7 +687,7 @@ export const getDataOnePatient = asyncHandler(async (req, res, next) => {
 export const updatePassword = asyncHandler(async (req, res, next) => {
 
     const { oldPassword, newPassword } = req.body
-  
+
     const doctor = await doctorModel.findById(req.doctor._id)
     if (!compare({ plaintext: oldPassword, hashValue: doctor.password })) {
 
@@ -656,5 +700,5 @@ export const updatePassword = asyncHandler(async (req, res, next) => {
     await doctor.save()
     return res.status(200).json({ message: "Done update password" })
 })
-  
+
 
