@@ -32,6 +32,7 @@ const patientSchema = new Schema({
   isLogin:{type:Boolean,default:false},
   doctorId: { type: Types.ObjectId, ref: 'Doctor',default: null  },
   
+  seizureHistory: [{ type: Types.ObjectId, ref: 'Seizure' }],
   guardianIds:[ { type: Types.ObjectId, ref: 'Guardian',default: null  }],
   
 }, {

@@ -25,7 +25,7 @@ const doctorSchema = new Schema({
   isApproved:{type:Boolean,default:false},
   isLogin:{type:Boolean,default:false},
   status: { type: String,default: 'offline',enum: ['offline', 'online', 'block']},
-  patientId:{type:Types.ObjectId,ref:'Patient'},
+  patientId:[{type:Types.ObjectId,ref:'Patient',default:null }],
   role:{type : String,default:'Doctor'},
 }, {
   timestamps: true
