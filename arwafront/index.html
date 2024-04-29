@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <title>page</title>
+</head>
+
+<body >
+
+    <i class="fas fa-arrow-alt-circle-up fa-2x text-info" id="myIcon"></i>
+    <nav id="main-nav" class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
+        <img src="./images/logo.png" alt="Bootstrap" width="50" height="34">
+  <a class="navbar-brand" href="#">care bracelet
+            </a>
+        
+      
+          <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+            <ul class="navbar-nav ml-auto">
+            
+                <li class="nav-item ">
+                <a class="nav-link selected-color bg"  href="#home">home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link selected-color bg" href="#doctors">doctors</a>
+              </li>
+              <li class="nav-item bg">
+                <a class="nav-link selected-color bg" href="#complaints">complaints</a>
+              </li>
+             
+           
+            </ul>
+          </div>
+        
+      </nav>
+      
+    <section id="home" class="py-5 light-dots">
+
+        <div class="container my-5">
+                <div class="title py-5  position-relative d-flex justify-content-center align-items-center">
+                    <h2 class="position-absolute selected-color">Admin</h2>
+                   
+                </div>
+        
+        
+                <div class="home-content">
+                    <p>Welcome</p>
+                    <h2>
+                        <span>I'm a Admin.</span>
+                        <span>I'm a Freelancer.</span>
+                        <span>I'm Simone Olivia</span>
+                        <span>I'm a Designer</span>
+                    </h2>
+                    <p>based in Los Angeles, California.</p>
+                <div id="Qr"></div>
+                   
+        <button type="button">hire me</button>
+         
+                </div>
+            </div>       
+            
+            </section>
+    <section id="doctors" class="py-5 light-dots">
+
+<div class="container my-5">
+        <div class="title py-5  position-relative d-flex justify-content-center align-items-center">
+            <h2 class="position-absolute selected-color">doctors</h2>
+           
+        </div>
+
+
+
+        <table class="table text-center table-hover  table-striped table-bordered ">
+
+            <thead>
+                <tr>
+                    <th>doctorId</th>
+                    <th>firstName</th>
+                    <th>lastName</th>
+                    <th>email</th>
+                    <th>clinicAddress</th>
+                    <th>phone_one</th>
+                    <th>certificate</th>
+                    <th>unionCard</th>
+                    <th>specialization</th>
+                    <th>accept</th>
+                    <th>reject</th>
+                  
+                </tr>
+            </thead>
+            <tbody id="tb">
+             
+               
+              
+               
+            </tbody>
+        </table>
+
+    </div>       
+    
+    </section>
+
+    <section id="complaints" class="py-5 dark-dots">
+
+        <div class="title py-5  position-relative d-flex justify-content-center align-items-center">
+            <h3 class="position-absolute">complaints</h3>
+        </div>
+        <p class="text-center my-3 text-muted selected-color">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+        </p>
+
+
+
+
+        <div class="container mt-5 text-center">
+
+            <div class="row">
+
+
+             
+
+
+                <table class="table text-center table-hover  table-striped table-bordered ">
+
+                    <thead>
+                        <tr>
+                            <th>complaintId</th>
+                            <th>email</th>
+                            <th>complaint</th>
+                            <th>role</th>
+                           
+                            <th>reply</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody id="tb2">
+                     
+                       
+                      
+                       
+                    </tbody>
+                </table>
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+    </section>
+
+	
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/ComplaintsandReply.js"></script>
+    
+    <script src="js/replyComplaint.js"></script>
+   
+</body>
+
+</html>
