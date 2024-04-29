@@ -6,6 +6,7 @@ import adminRouter from './modules/admin/admin.router.js'
 //import guardianRouter from './modules/guardian/guardian.router.js'
 import complaintRouter from './modules/complaint/complaint.router.js'
 
+import seizureRouter from './modules/seizure/seizure.router.js'
 import caregiverRouter from './modules/caregivers/caregivers.router.js'
 import cors from 'cors'
 
@@ -16,6 +17,8 @@ const initApp = (app, express) => {
     app.use(cors())
     app.use(`/patient`, patientRouter)
   //  app.use(`/guardian`, guardianRouter)
+  
+  app.use(`/seizure`, seizureRouter)
     app.use(`/doctor`, doctorRouter)
     app.use(`/admin`, adminRouter)
     app.use(`/complaint`, complaintRouter)
