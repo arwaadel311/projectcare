@@ -6,7 +6,7 @@ const seizureSchema = new Schema({
   patientId: { type: Types.ObjectId, ref: 'Patient' },
   heartRate: { type: Number },
   motionRate: { type: Number },
-  type: { type: String, enum: ['0', '1'], required: true, default: '0' },
+  type: { type: String, enum: ['0', '1'], required: true, default: '1' },
   Time: { type: Date, required: true },
   //location
   lat: { type: Number },

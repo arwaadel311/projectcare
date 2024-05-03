@@ -1,13 +1,14 @@
+
+
+
+
 import { asyncHandler } from "../../../utils/errorHandling.js";
-
-
 import doctorModel from '../../../../DB/model/doctor.model.js'
 import patientModel from '../../../../DB/model/patient.model.js'
 import guardianModel from "../../../../DB/model/guardian.model.js";
 
 //addPatient 
-
-
+//doctor scan qrCode patient
 export const addPatientDoctor = asyncHandler(async (req, res, next) => {
     const { patientId } = req.params;
     const patient = await patientModel.findById(patientId)
@@ -32,6 +33,7 @@ export const addPatientDoctor = asyncHandler(async (req, res, next) => {
 
 //addPatient
 
+//guardian scan qrCode patient
 export const addPatientGuardian = asyncHandler(async (req, res, next) => {
     const { patientId } = req.params;
     const patient = await patientModel.findById(patientId)

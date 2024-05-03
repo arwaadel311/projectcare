@@ -18,8 +18,6 @@ export const patients = asyncHandler(async (req, res, next) => {
         .populate({ path: 'seizureHistory', select: ' heartRate motionRate Time lng lat' })
     return res.status(200).json({ message: "Done", patient })
 })
-
-
 //signUp
 export const signupPatient = asyncHandler(async (req, res, next) => {
     const { firstName, lastName, email, password, gender, homeAddress, phone_one, phone_two, birthDate } = req.body
@@ -126,11 +124,10 @@ export const signupPatient = asyncHandler(async (req, res, next) => {
         emailCode,
         password: hashPassword
         , gender, homeAddress,
-        phone_one, phone_two, birthDate,
+        phone_one, phone_two, birthDate
     })
     return res.status(201).json({ message: "Done", _id })
 })
-
 //confirm Email
 export const confirmEmailPatient = asyncHandler(async (req, res, next) => {
     const { emailCode } = req.body
@@ -146,7 +143,6 @@ export const confirmEmailPatient = asyncHandler(async (req, res, next) => {
     await patient.save()
     return res.status(200).json({ message: "Done" })
 })
-
 //login
 export const loginPatient = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body
@@ -192,8 +188,6 @@ export const loginPatient = asyncHandler(async (req, res, next) => {
         patientID_token
     })
 })
-
-
 //logout
 export const logoutPatient = asyncHandler(async (req, res, next) => {
 
@@ -201,11 +195,6 @@ export const logoutPatient = asyncHandler(async (req, res, next) => {
 
     return res.status(200).json({ message: "Done is logout" })
 })
-
-
-
-
-
 //profile
 export const profilePatient = asyncHandler(async (req, res, next) => {
     const patient = await patientModel.findById(req.patient._id)
@@ -214,9 +203,6 @@ export const profilePatient = asyncHandler(async (req, res, next) => {
         patient
     })
 })
-
-
-
 // Generate QR Patient 
 export const QRPatient = asyncHandler(async (req, res, next) => {
     const patient = await patientModel.findById(req.patient._id)
@@ -231,10 +217,25 @@ export const QRPatient = asyncHandler(async (req, res, next) => {
                 link: `${req.protocol}://${req.headers.host}/caregivers/${req.patient._id}`,
             })
         })
+        //console.log(url);
 })
 
+// Generate QR Patient 
+export const GetQRPatient = asyncHandler(async (req, res, next) => {
+    const patient = await patientModel.findById(req.patient._id)
+    QRCode.toDataURL(`${req.protocol}://${req.headers.host}/caregivers/${req.patient._id}`,
+        { type: 'terminal' },
 
+        function (err, url) {
+            return res.json({
 
+                message: "Done QR",
+                url,
+                link: `${req.protocol}://${req.headers.host}/caregivers/${req.patient._id}`,
+            })
+        })
+        //console.log(url);
+})
 //send code email Again
 export const sendCodeEmail = asyncHandler(async (req, res, next) => {
     const { email } = req.body
@@ -329,10 +330,7 @@ export const sendCodeEmail = asyncHandler(async (req, res, next) => {
     }
     return res.status(200).json({ message: "Done" })
 })
-
-
 //sendCode
-
 export const sendCodePatient = asyncHandler(async (req, res, next) => {
     const { email } = req.body
     const patient = await patientModel.findOne({ email: email.toLowerCase() })
@@ -426,7 +424,6 @@ export const sendCodePatient = asyncHandler(async (req, res, next) => {
 
     return res.status(200).json({ message: "Done" })
 })
-
 //check your email verifyCode forgetPassword
 export const CodeForgetPasswordPatient = asyncHandler(async (req, res, next) => {
     const { EmailPasswordCode } = req.body
@@ -443,8 +440,6 @@ export const CodeForgetPasswordPatient = asyncHandler(async (req, res, next) => 
     await patient.save()
     return res.status(200).json({ message: "Done" })
 })
-
-
 // forgetPassword set a new password
 export const resetPassword = asyncHandler(async (req, res, next) => {
     const { newPassword } = req.body;
@@ -463,8 +458,6 @@ export const resetPassword = asyncHandler(async (req, res, next) => {
     await patient.save();
     return res.status(200).json({ message: "Done reset", newPassword });
 })
-
-
 //Get patient by Id
 export const patientById = asyncHandler(async (req, res, next) => {
 
@@ -474,7 +467,23 @@ export const patientById = asyncHandler(async (req, res, next) => {
     }
     return res.status(200).json({ message: "Done", patient })
 })
-
+//update patient
+export const updatePatient = asyncHandler(async (req, res, next) => {
+    const patient = await patientModel.findByIdAndUpdate(req.patient._id, req.body, { new: true });
+    if (!patient) {
+        return next(new Error(`patient not found `, { cause: 404 }))
+    }
+    return res.status(200).json({ message: "Done updated" })
+})
+//delete Patient
+export const deletePatient = asyncHandler(async (req, res, next) => {
+    const {patientId}=req.params
+    const patient = await patientModel.findByIdAndDelete(patientId);
+    if (!patient) {
+        return next(new Error(`Patient not found `, { cause: 404 }))
+    }
+    return res.status(200).json({ message: "Done patient deleted", })
+})
 // //update patient
 // export const updatePatient = asyncHandler(async (req, res, next) => {
 //     const patient = await patientModel.findByIdAndUpdate(req.params.patientId,
@@ -486,23 +495,6 @@ export const patientById = asyncHandler(async (req, res, next) => {
 // })
 
 
-//update patient
-export const updatePatient = asyncHandler(async (req, res, next) => {
-    const patient = await patientModel.findByIdAndUpdate(req.patient._id, req.body, { new: true });
-    if (!patient) {
-        return next(new Error(`patient not found `, { cause: 404 }))
-    }
-    return res.status(200).json({ message: "Done updated" })
-})
-//delete Patient
-
-export const deletePatient = asyncHandler(async (req, res, next) => {
-    const patient = await patientModel.findByIdAndDelete(req.params.id);
-    if (!patient) {
-        return next(new Error(`Patient not found `, { cause: 404 }))
-    }
-    return res.status(200).json({ message: "Done patient deleted", })
-})
 
 
 

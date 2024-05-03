@@ -1,10 +1,17 @@
-function send(id) {
+const baseURL = 'http://localhost:5000'
+// start Display data
+const headers = {
+    'Content-Type': 'application/json; charset=UTF-8',
+    'authorization': `Hamada__${localStorage.getItem("access_Token")}`
+}
+
+function send() {
     const data = {
         description : $('#description').val(),
         }
     axios({
         method: 'post',
-        url: `${baseURL}/complaint/feedbackComplaint/${id}`,  
+        url: `${baseURL}/complaint/feedbackComplaint/${complaintId}`,  
         data:data,
         headers
     })

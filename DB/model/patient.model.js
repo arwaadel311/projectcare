@@ -33,8 +33,9 @@ const patientSchema = new Schema({
   doctorId: { type: Types.ObjectId, ref: 'Doctor',default: null  },
   
   seizureHistory: [{ type: Types.ObjectId, ref: 'Seizure' }],
-  guardianIds:[ { type: Types.ObjectId, ref: 'Guardian',default: null  }],
-  
+  guardianIds:[ { type: Types.ObjectId, ref: 'Guardian',default: null  }]
+    ,
+   // qrCode:{type:String,default:null}
 }, {
   timestamps: true
 });

@@ -10,7 +10,7 @@ const router = Router()
 //all patient
 router.get("/",patientController.patients)
 //get patient by Id
-router.get("/:id",patientController.patientById)
+router.get("/getById/:id",patientController.patientById)
 
 //update patient
 //router.put('/update/:patientId', patientController.updatePatient);
@@ -18,7 +18,7 @@ router.put('/update',authPatient, patientController.updatePatient);
 
 
 //delete patient
-router.delete('/:id', patientController.deletePatient);
+router.delete('/:patientId',authPatient, patientController.deletePatient);
 //router.delete('/delete',authPatient, patientController.deletePatient);
 
 //signup
@@ -45,6 +45,7 @@ router.get("/home/profile",authPatient,patientController.profilePatient)
 
 router.patch("/patientQR",authPatient,patientController.QRPatient)
 
+router.get("/qr/QR",authPatient,patientController.GetQRPatient)
 
 router.patch("/sendCodeEmail",
 validation(validators.sendCodeEmailAgain),

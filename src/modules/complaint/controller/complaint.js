@@ -7,11 +7,13 @@ import complaintModel from "../../../../DB/model/complaint.model.js";
 import patientModel from '../../../../DB/model/patient.model.js'
 import sendEmail from "../../../utils/email.js";
 import adminModel from "../../../../DB/model/admin.model.js";
+
+//all complaints
 export const getComplaintModule = asyncHandler(async (req, res, next) => {
   const Complaints = await complaintModel.find()
   return res.status(201).json({ message: 'Done', Complaints })
 });
-
+//doctor send complaint
 export const sendComplaintDoctor = asyncHandler(async (req, res, next) => {
  // const { email, complaint } = req.body;
  const {  complaint } = req.body;
@@ -25,6 +27,8 @@ export const sendComplaintDoctor = asyncHandler(async (req, res, next) => {
   const createComplaint = await complaintModel.create({ complaint, role: doctor.role, email:doctor.email})
   return res.status(201).json({ message: 'Done', createComplaint })
 });
+
+//patient send complaint
 export const sendComplaintPatient = asyncHandler(async (req, res, next) => {
 
   const {  complaint } = req.body;
@@ -40,6 +44,7 @@ export const sendComplaintPatient = asyncHandler(async (req, res, next) => {
   return res.status(201).json({ message: 'Done', createComplaint })
 });
 
+//guardian send complaint
 export const sendComplaintGuardian = asyncHandler(async (req, res, next) => {
 
   const {  complaint } = req.body;
@@ -51,13 +56,16 @@ export const sendComplaintGuardian = asyncHandler(async (req, res, next) => {
     return next(new Error("please login", { cause: 404 }))
 
   }
+
+
+
+
+
   const createComplaint = await complaintModel.create({ complaint, email:guardian.email, role: guardian.role })
   return res.status(201).json({ message: 'Done', createComplaint })
 });
 
-
-
-
+//admin send reply complaint feedback
 export const sendReply =asyncHandler( async (req, res, next) => {
   const { description } = req.body
   const { complaintId } = req.params
@@ -73,6 +81,8 @@ export const sendReply =asyncHandler( async (req, res, next) => {
   
   complaint.replyComplaint = description
   await complaint.save()
+
+
 
 const html = `<!DOCTYPE html>
 <html>

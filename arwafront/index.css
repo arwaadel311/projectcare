@@ -107,3 +107,7 @@ body {
     background-color: transparent;
 }
 
+img {
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}

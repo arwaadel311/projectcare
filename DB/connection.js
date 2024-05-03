@@ -6,5 +6,5 @@ const connectDB  = async ()=>{
     .catch(err=>console.log(` Fail to connect  DB.........${err} `))
 }
 
-
+//mongodb+srv://arwaadel:01002367427@clustero.2pxcoag.mongodb.net
 export default connectDB;

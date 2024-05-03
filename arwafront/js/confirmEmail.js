@@ -7,7 +7,7 @@ $("#confirmEmail").click(() => {
     console.log({ data });
     axios({
         method: 'put',
-        url: `${baseURL}/patient/confirm/EmailPatient`,
+        url: `${baseURL}/patient/confirmEmailPatient`,
         data: data,
         headers: { 'Content-Type': 'application/json; charset=UTF-8' }
     }).then(function (response) {

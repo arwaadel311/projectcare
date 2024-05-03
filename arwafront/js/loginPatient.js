@@ -14,7 +14,7 @@ $("#loginPatient").click(() => {
         headers: { 'Content-Type': 'application/json; charset=UTF-8' }
     }).then(function (response) {
         console.log({ response });
-        const { message, access_Token } = response.data
+        const { message, access_Token,refresh_token,patientID_token } = response.data
         if (message == "Done") {
             localStorage.setItem('access_Token', access_Token);
            window.location.href = 'homePatient.html';

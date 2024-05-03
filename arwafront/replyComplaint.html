@@ -12,11 +12,32 @@
 </head>
 
 <body>
-    <div class="container border p-3 my-5 rounded">
-        <label for="productDesc">Description</label>
-        <textarea class="form-control my-3" name="" id="description" cols="30" rows="10"></textarea>
-        <button onclick='send("${Complaints[index]._id}")'  class="btn btn-outline-warning">send</button>
-    </div>
+    <section id="replyComlaint" class="py-5 dark-dots">
+
+        <div class="title py-5  position-relative d-flex justify-content-center align-items-center">
+            <h3 class="position-absolute">complaints</h3>
+        </div>
+        <p class="text-center my-3 text-muted selected-color">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+        </p>
+
+
+
+
+        <div class="container mt-5 text-center">
+
+            <div class="row">
+
+    
+                <div class="container border p-3 my-5 rounded">
+                    <label for="productDesc">Description</label>
+                    <textarea class="form-control my-3" name="" id="description" cols="30" rows="10"></textarea>
+                    <button onclick='send()'  class="btn btn-outline-warning">send</button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+ 
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -27,9 +48,8 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
     
-    <script src="js/ComplaintsandReply.js"></script>
     
-    <script src="js/main.js"></script>
+    <script src="js/replyComplaint.js"></script>
 </body>
 
 </html>

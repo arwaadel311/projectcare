@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
     integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="index.css">
-    <title>page</title>
+    <title>home doctor</title>
 </head>
 
 <body >
@@ -27,11 +27,15 @@
                 <a class="nav-link selected-color bg"  href="#home">home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link selected-color bg" href="#doctors">doctors</a>
-              </li>
+                <a class="nav-link selected-color bg" href="#QRscanCode">scanQRCode</a>
+              <!-- </li>
               <li class="nav-item bg">
                 <a class="nav-link selected-color bg" href="#complaints">complaints</a>
-              </li>
+               </li>
+ 
+              <li class="nav-item bg">
+                <a class="nav-link selected-color bg" href="#deleteaccount">deleteaccount</a>
+              </li> -->
              
            
             </ul>
@@ -43,7 +47,7 @@
 
         <div class="container my-5">
                 <div class="title py-5  position-relative d-flex justify-content-center align-items-center">
-                    <h2 class="position-absolute selected-color">Admin</h2>
+                    <h2 class="position-absolute selected-color">doctor</h2>
                    
                 </div>
         
@@ -51,13 +55,13 @@
                 <div class="home-content">
                     <p>Welcome</p>
                     <h2>
-                        <span>I'm a Admin.</span>
+                        <span>I'm a doctor.</span>
                         <span>I'm a Freelancer.</span>
                         <span>I'm Simone Olivia</span>
                         <span>I'm a Designer</span>
                     </h2>
                     <p>based in Los Angeles, California.</p>
-               
+                
                    
         <button type="button">hire me</button>
          
@@ -65,102 +69,45 @@
             </div>       
             
             </section>
-    <section id="doctors" class="py-5 light-dots">
+    <section id="QRscanCode" class="py-5 light-dots">
 
 <div class="container my-5">
         <div class="title py-5  position-relative d-flex justify-content-center align-items-center">
-            <h2 class="position-absolute selected-color">doctors</h2>
+        
+            <h2 class="position-absolute selected-color"> scanCode patient</h2>
            
+        </div>
+            <table class="table text-center table-hover  table-striped table-bordered ">
+
+                <thead>
+                    <tr>
+                        <th>qrCode</th>
+                       
+                      
+                    </tr>
+                </thead>
+                <tbody id="t2">
+                 
+                   
+                  
+                   
+                </tbody>
+            </table
+
+        
         </div>
 
 
 
-        <table class="table text-center table-hover  table-striped table-bordered ">
-
-            <thead>
-                <tr>
-                    <th>doctorId</th>
-                    <th>firstName</th>
-                    <th>lastName</th>
-                    <th>email</th>
-                    <th>clinicAddress</th>
-                    <th>phone_one</th>
-                    <th>certificate</th>
-                    <th>unionCard</th>
-                    <th>specialization</th>
-                    <th>accept</th>
-                    <th>reject</th>
-                  
-                </tr>
-            </thead>
-            <tbody id="tb">
-             
-               
-              
-               
-            </tbody>
-        </table>
 
     </div>       
     
     </section>
 
-    <section id="complaints" class="py-5 dark-dots">
-
-        <div class="title py-5  position-relative d-flex justify-content-center align-items-center">
-            <h3 class="position-absolute">complaints</h3>
-        </div>
-        <p class="text-center my-3 text-muted selected-color">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        </p>
-
-
-
-
-        <div class="container mt-5 text-center">
-
-            <div class="row">
-
-
-             
-
-
-                <table class="table text-center table-hover  table-striped table-bordered ">
-
-                    <thead>
-                        <tr>
-                            <th>complaintId</th>
-                            <th>email</th>
-                            <th>complaint</th>
-                            <th>role</th>
-                           
-                            <th>reply</th>
-                          
-                        </tr>
-                    </thead>
-                    <tbody id="tb2">
-                     
-                       
-                      
-                       
-                    </tbody>
-                </table>
-
-
-
-
-
-
-
-
-
-
-
-            </div>
-        </div>
-
-    </section>
+   
 
 	
+
     
 
 
@@ -171,10 +118,7 @@
     integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
     crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/ComplaintsandReply.js"></script>
-    
-    <script src="js/replyComplaint.js"></script>
+   
    
 </body>
 

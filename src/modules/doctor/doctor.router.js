@@ -16,7 +16,7 @@ router.get("/getById/:id",doctorController.doctorById)
 // router.put('/update/:doctorId',doctorController.updateDoctor);
 router.put('/update',authDoctor,doctorController.updateDoctor);
 //delete doctor
-router.delete('/:doctorId', doctorController.deleteDoctor);
+router.delete('/:doctorId',authDoctor, doctorController.deleteDoctor);
 
 //router.delete('/delete', authDoctor,doctorController.deleteDoctor);
 
@@ -99,6 +99,6 @@ export default router
 
 
 
-router.get('/NewConfirmEmail/:token',
-validation(validators.token),
-doctorController.generateRefreshToken)
+// router.get('/NewConfirmEmail/:token',
+// validation(validators.token),
+// doctorController.generateRefreshToken)
