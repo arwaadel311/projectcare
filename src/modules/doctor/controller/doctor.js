@@ -290,18 +290,13 @@ export const getDataOnePatient = asyncHandler(async (req, res, next) => {
 
     const { patientId } = req.params
     const OnePatientDocID = await patientModel.findById(patientId)
-    .select('-password -confirmEmail -emailCode -verifyEmail -EmailPasswordCode ')
-   // .populate({ path: 'patientId', select: 'firstName lastName email  phone_one' })
+    .select('-_id firstName birthDate gender homeAddress phone_one guardianIds')
+   .populate({ path: 'guardianIds', select: '-_id firstName phone_one' })
     if (!OnePatientDocID) {
         return next(new Error("Not register account", { cause: 404 }))
     }
-    if (!OnePatientDocID.isLogin) {
-        return next(new Error("No login", { cause: 404 }))
-    }
+    
 
-    if (!OnePatientDocID.doctorId) {
-        return next(new Error("No patient follow", { cause: 404 }))
-    }
 
  
         return res.status(200).json({ message: "Done" ,OnePatientDocID})
