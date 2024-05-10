@@ -49,6 +49,9 @@ export const deleteDoctor = asyncHandler(async (req, res, next) => {
     if (!doctor) {
         return next(new Error(`doctor not found `, { cause: 404 }))
     }
+    const patient = await patientModel.findOne({doctorId});
+    patient.doctorId=null
+    await patient.save()
     return res.status(200).json({ message: "Done doctor deleted", })
 })
 //signUp
