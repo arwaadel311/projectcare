@@ -167,7 +167,7 @@ export const loginGuardian = asyncHandler(async (req, res, next) => {
         payload: { id: guardian._id },
 
         //expiresIn: 60 * 30 //1h
-        expiresIn: 60 * 60 * 24 * 30 //1 month
+        expiresIn: 60 * 60 * 24 * 30 * 12 //1 month
     })
 
 
