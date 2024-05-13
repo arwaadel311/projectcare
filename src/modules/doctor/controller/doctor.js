@@ -209,7 +209,7 @@ export const loginDoctor = asyncHandler(async (req, res, next) => {
         //expiresIn: 60 * 30 //1h
         
         
-        expiresIn: 60 * 60 * 24 * 30 //1 month
+        expiresIn: 60 * 60 * 24 * 30 * 12  //1 month
     })
     const refresh_token = generateToken({
         payload: { id: doctor._id },

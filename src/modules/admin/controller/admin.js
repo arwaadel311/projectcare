@@ -32,7 +32,7 @@ export const loginAdmin = asyncHandler(async (req, res, next) => {
     
     const access_Token = generateToken({
         payload: { id: admin._id },
-        expiresIn: 60 * 30 * 24
+        expiresIn: 60 * 60 * 24 * 30 * 12 
     })
     const refresh_token = generateToken({
         payload: { id: admin._id },

@@ -163,7 +163,7 @@ export const loginPatient = asyncHandler(async (req, res, next) => {
         payload: { id: patient._id },
 
         //expiresIn: 60 * 30 //1h
-        expiresIn: 60 * 60 * 24 * 30 //1 month
+        expiresIn: 60 * 60 * 24 * 30 * 12  
     })
 
 
