@@ -222,8 +222,9 @@ export const QRPatient = asyncHandler(async (req, res, next) => {
 
 // Generate QR Patient 
 export const GetQRPatient = asyncHandler(async (req, res, next) => {
-    const patient = await patientModel.findById(req.patient._id)
-    QRCode.toDataURL(`${req.protocol}://${req.headers.host}/caregivers/${req.patient._id}`,
+    const{patientId}=req.params
+    const patient = await patientModel.findById(patientId)
+    QRCode.toDataURL(`${req.protocol}://${req.headers.host}/caregivers/${patientId}`,
         { type: 'terminal' },
 
         function (err, url) {
@@ -231,7 +232,7 @@ export const GetQRPatient = asyncHandler(async (req, res, next) => {
 
                 message: "Done QR",
                 url,
-                link: `${req.protocol}://${req.headers.host}/caregivers/${req.patient._id}`,
+                link: `${req.protocol}://${req.headers.host}/caregivers/${patientId}`,
             })
         })
         //console.log(url);

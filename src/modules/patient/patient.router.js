@@ -45,7 +45,8 @@ router.get("/home/profile",authPatient,patientController.profilePatient)
 
 router.patch("/patientQR",authPatient,patientController.QRPatient)
 
-router.get("/qr/QR",authPatient,patientController.GetQRPatient)
+//router.get("/patientQR/:patientId",patientController.QRPatient)
+router.get("/QR/:patientId",patientController.GetQRPatient)
 
 router.patch("/sendCodeEmail",
 validation(validators.sendCodeEmailAgain),
