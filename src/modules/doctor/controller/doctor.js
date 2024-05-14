@@ -54,9 +54,122 @@ export const deleteDoctor = asyncHandler(async (req, res, next) => {
     await patient.save()
     return res.status(200).json({ message: "Done doctor deleted", })
 })
-//signUp
+// //signUp
+// export const signupDoctor = asyncHandler(async (req, res, next) => {
+//     const { firstName, lastName, clinicAddress, phone_one, phone_two, unionCard, certificate, specialization, email, password } = req.body
+//     //check email exist
+//     const checkDoctor = await doctorModel.findOne({ email: email.toLowerCase() })
+//     const checkAdmin = await adminModel.findOne({ email: email.toLowerCase() })
+//     const checkPatient = await patientModel.findOne({ email: email.toLowerCase() })
+//     if (checkDoctor) {
+//         return next(new Error(`Email exist`, { cause: 404 }))
+//     }
+//     if (checkDoctor !== checkPatient) {
+//         return next(new Error(`duplicated  patient email`, { cause: 409 }))
+//     }
+//     if (checkDoctor !== checkAdmin) {
+//         return next(new Error(`duplicated admin email`, { cause: 409 }))
+//     }
+//     //send email()
+//     const emailCode = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)
+
+//     const html = `<!DOCTYPE html>
+//     <html>
+//     <head>
+//         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></head>
+//     <style type="text/css">
+//     body{
+//         background-color: #88BDBF;margin: 0px;
+//     }
+//     </style>
+//     <body style="margin:0px;"> 
+//     <table border="0" width="50%" style="margin:auto;padding:30px;background-color: #F3F3F3;border:1px solid #630E2B;">
+//     <tr>
+//     <td>
+//     <table border="0" width="100%">
+//     <tr>
+//     <td>
+//     <h1>
+//     care bracelet  
+//     </h1>
+//     </td>
+//     <td>
+    
+//     </td>
+//     </tr>
+//     </table>
+//     </td>
+//     </tr>
+//     <tr>
+//     <td>
+//     <table border="0" cellpadding="0" cellSpacing="0" style="text-align:center;width:100%;background-color: #fff;">
+//     <tr>
+//     <td style="background-color:#630E2B;height:100px;font-size:50px;color:#fff;">
+//     <img width="50px" height="50px" src="https://res.cloudinary.com/ddajommsw/image/upload/v1670703716/Screenshot_1100_yne3vo.png">
+//     </td>
+//     </tr>
+//     <tr>
+//     <td>
+//     <h1 style="padding-top:25px; color:#630E2B">confirm email</h1>
+//     </td>
+//     </tr>
+//     <tr>
+//     <td>
+//     <p style="padding:0px 100px;">
+//     </p>
+//     </td>
+//     </tr>
+//     <tr>
+//     <td>
+//     <p style="margin:10px 0px 30px 0px;border-radius:4px;padding:10px 20px;border: 0;color:#fff;background-color:#630E2B; ">${emailCode}</p>
+//     </td>
+//     </tr>
+    
+//     </table>
+//     </td>
+//     </tr>
+//     <tr>
+//     <td>
+//     <table border="0" width="100%" style="border-radius: 5px;text-align: center;">
+//     <tr>
+//     <td>
+//     <h3 style="margin-top:10px; color:#000">confirm email</h3>
+//     </td>
+//     </tr>
+//     <tr>
+//     <td>
+//     <div style="margin-top:20px;">
+
+//     </div>
+//     </td>
+//     </tr>
+//     </table>
+//     </td>
+//     </tr>
+//     </table>
+//     </body>
+//     </html>`
+
+//     if (!await sendEmail({ to: email, subject: 'confirmation-email', html })) { return next(new Error(`fail to send this email`, { cause: 400 })) }
+//     ///hash password
+//     const hashPassword = hash({ plaintext: password })
+//     //save//create doctor 
+//     const { secure_url, public_id } = await cloudinary.uploader.upload(req.files?.certificate[0].path,
+//         { folder: `${process.env.APP_NAME}/doctor/certificate` })
+//     req.body.certificate = { secure_url, public_id }
+//     const { url, id } = await cloudinary.uploader.upload(req.files?.unionCard[0].path,
+//         { folder: `${process.env.APP_NAME}/doctor/unionCard` })
+//     req.body.unionCard = { url, id }
+//     const { _id } = await doctorModel.create({
+//         firstName, lastName, clinicAddress, phone_one, phone_two,
+//         certificate: { secure_url, public_id }, unionCard: { url, id },
+//         emailCode, specialization, email, password: hashPassword,
+//     })
+//     return res.status(201).json({ message: "Done", _id })
+// })
+
 export const signupDoctor = asyncHandler(async (req, res, next) => {
-    const { firstName, lastName, clinicAddress, phone_one, phone_two, unionCard, certificate, specialization, email, password } = req.body
+    const { firstName, lastName, clinicAddress, phone_one, phone_two, specialization, email, password } = req.body
     //check email exist
     const checkDoctor = await doctorModel.findOne({ email: email.toLowerCase() })
     const checkAdmin = await adminModel.findOne({ email: email.toLowerCase() })
@@ -162,7 +275,7 @@ export const signupDoctor = asyncHandler(async (req, res, next) => {
     req.body.unionCard = { url, id }
     const { _id } = await doctorModel.create({
         firstName, lastName, clinicAddress, phone_one, phone_two,
-        certificate: { secure_url, public_id }, unionCard: { url, id },
+        certificate: { secure_url, public_id }, unionCard:{ url, id },
         emailCode, specialization, email, password: hashPassword,
     })
     return res.status(201).json({ message: "Done", _id })

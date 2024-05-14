@@ -51,7 +51,7 @@ router.get("/QR/:patientId",patientController.GetQRPatient)
 router.patch("/sendCodeEmail",
 validation(validators.sendCodeEmailAgain),
 patientController.sendCodeEmail)
-
+ 
 
 
 router.post('/forgetPassword',
