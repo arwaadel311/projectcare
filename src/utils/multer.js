@@ -69,7 +69,7 @@ export function fileUpload(customValidation = fileValidation.image) {
             cb('In-valid file format', false)
         }
     }
-    const upload = multer({ fileFilter, storage })
+    const upload = multer({ fileFilter, storage:storage })
     return upload
 }
 
