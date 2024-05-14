@@ -80,11 +80,11 @@ patientController.resetPassword)
 // patientController.generateRefreshToken)
 // router.patch("/updateForget/PasswordPatient",
 // validation(validators.updateForgetPassword),
+//patientController.updatePassword)
 
-// patientController.updatePassword)
-// router.post("/rate/:patientId",patientController.Rate)
+router.post("/rate/:patientId",patientController.Rate)
 
-// router.get("/rate/:patientId",patientController.Rates)
+router.get("/rate/:patientId",patientController.Rates)
 
 
 export default router
