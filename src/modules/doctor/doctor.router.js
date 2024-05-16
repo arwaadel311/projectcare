@@ -47,11 +47,11 @@ router.get("/getOnePatient/:patientId",authDoctor,doctorController.getDataOnePat
 //signUp
 router.post('/signupDoctor',
 
-// fileUpload(fileValidation.image).fields([
-//     { name: 'certificate', maxCount: 1 },
-//     { name: 'unionCard', maxCount: 1 }
-// ]),
-//validation(validators.signUpDoctor),
+fileUpload(fileValidation.image).fields([
+    { name: 'certificate', maxCount: 1 },
+    { name: 'unionCard', maxCount: 1 }
+]),
+validation(validators.signUpDoctor),
 doctorController.signupDoctor)
 //login
 router.post('/loginDoctor',

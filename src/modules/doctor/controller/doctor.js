@@ -266,19 +266,19 @@ export const signupDoctor = asyncHandler(async (req, res, next) => {
     if (!await sendEmail({ to: email, subject: 'confirmation-email', html })) { return next(new Error(`fail to send this email`, { cause: 400 })) }
     ///hash password
     const hashPassword = hash({ plaintext: password })
-    // //save//create doctor 
-    // const { secure_url, public_id } = await cloudinary.uploader.upload(req.files?.certificate[0].path,
-    //     { folder: `${process.env.APP_NAME}/doctor/certificate` })
-    // req.body.certificate = { secure_url, public_id }
-    // const { url, id } = await cloudinary.uploader.upload(req.files?.unionCard[0].path,
-    //     { folder: `${process.env.APP_NAME}/doctor/unionCard` })
-    // req.body.unionCard = { url, id }
-    const { _id } = await doctorModel.create(
-        {
-        firstName, lastName, clinicAddress, phone_one, phone_two,
-       // certificate: { secure_url, public_id }, unionCard:{ url, id },
-        emailCode, specialization, email, password: hashPassword,
-   }
+    //save//create doctor 
+    const { secure_url, public_id } = await cloudinary.uploader.upload(req.files?.certificate[0].path,
+        { folder: `${process.env.APP_NAME}/doctor/certificate` })
+    req.body.certificate = { secure_url, public_id }
+    const { url, id } = await cloudinary.uploader.upload(req.files?.unionCard[0].path,
+        { folder: `${process.env.APP_NAME}/doctor/unionCard` })
+    req.body.unionCard = { url, id }
+    const { _id } = await doctorModel.create(req.body
+        //{
+    //     firstName, lastName, clinicAddress, phone_one, phone_two,
+    //     certificate: { secure_url, public_id }, unionCard:{ url, id },
+    //     emailCode, specialization, email, password: hashPassword,
+//    }
 )
     return res.status(201).json({ message: "Done", _id })
 })
