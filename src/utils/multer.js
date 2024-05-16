@@ -60,7 +60,7 @@ export const fileValidation = {
     file: ['application/pdf', 'application/msword'],
     video: ['video/mp4']
 }
-export function fileUpload(customValidation = fileValidation.image) {
+export function fileUpload(customValidation = []) {
     const storage = multer.diskStorage({})
     function fileFilter(req, file, cb) {
         if (customValidation.includes(file.mimetype)) {
