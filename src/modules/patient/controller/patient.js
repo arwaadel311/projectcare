@@ -566,11 +566,6 @@ export const deletePatient = asyncHandler(async (req, res, next) => {
 
 
 
-
-
-
-
-
 //post Hardware Rate
 export const Rate = asyncHandler(async (req, res, next) => {
     const { heartRate, motionRate } = req.body
