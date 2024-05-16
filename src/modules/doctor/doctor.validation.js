@@ -11,10 +11,10 @@ export const signUpDoctor = joi.object({
     clinicAddress: joi.string().min(2).max(50).required(),
     phone_one: joi.number().positive().required(),
     phone_two: joi.number().positive().required(),
-    file: joi.object({
-        unionCard: joi.array().items(generalFields.file.required()).length(1).required(),
-        certificate: joi.array().items(generalFields.file.required()).length(1).required(),
-    }).required(),
+    // file: joi.object({
+    //     unionCard: joi.array().items(generalFields.file.required()).length(1).required(),
+    //     certificate: joi.array().items(generalFields.file.required()).length(1).required(),
+    // }).required(),
     specialization: joi.string().min(2).max(50).required()
 }).required()
 
