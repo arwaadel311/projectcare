@@ -51,7 +51,7 @@ router.post('/signupDoctor',
 //     { name: 'certificate', maxCount: 1 },
 //     { name: 'unionCard', maxCount: 1 }
 // ]),
-validation(validators.signUpDoctor),
+//validation(validators.signUpDoctor),
 doctorController.signupDoctor)
 //login
 router.post('/loginDoctor',
