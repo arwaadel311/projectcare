@@ -124,6 +124,7 @@ export const signupPatient = asyncHandler(async (req, res, next) => {
         emailCode,
         password: hashPassword
         , gender, homeAddress,
+        heartRate,motionRate,
         phone_one, phone_two, birthDate
     })
     return res.status(201).json({ message: "Done", _id })
