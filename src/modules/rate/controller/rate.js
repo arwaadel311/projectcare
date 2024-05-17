@@ -7,6 +7,6 @@ export const createRate = asyncHandler(async (req, res, next) => {
         {heartRate, motionRate}
 )
     
-    return res.status(201).json({ message: "Done", rates })
+    return res.status(201).json({ message: "Done rate", rates })
 
 })
