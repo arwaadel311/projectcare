@@ -27,7 +27,8 @@ export const loginAdmin = asyncHandler(async (req, res, next) => {
  
     const match = compare({ plaintext: password, hashValue: admin.password })
     if (!match) {
-        return next(new Error(`IN-valid login data`, { cause: 404 }))
+        return next(new Error(`IN-valid  password`, { cause: 404 }))
+
     }
     
     const access_Token = generateToken({
