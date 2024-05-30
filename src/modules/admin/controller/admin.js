@@ -106,7 +106,7 @@ export const deleteDoctor= async (req, res, next) => {
     const { doctorId } = req.params
     const doctor = await doctorModel.findByIdAndDelete(doctorId)
     if (!doctor) {
-        return next(new Error('In-valid account', { cause: 400 }))
+        return next(new Error('In-valid account', { cause: 200 }))
 
     }
     
