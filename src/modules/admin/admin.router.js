@@ -32,7 +32,7 @@ adminController.GetAllDoctorsApprovedFalse)
 router.get('/allDoctor',authAdmin,
 adminController.GetAllDoctor)
 
-router.get('/p/allPatient',authAdmin,
+router.get('/allPatient',authAdmin,
 adminController.GetAllPatient)
 
 router.delete('/:doctorId',authAdmin,
