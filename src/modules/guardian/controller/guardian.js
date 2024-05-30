@@ -136,10 +136,10 @@ export const confirmEmailGuardian = asyncHandler(async (req, res, next) => {
     const {  emailCode } = req.body
     const guardian = await guardianModel.findOne({ emailCode })
     if (!guardian) {
-        return next(new Error('In-valid account', { cause: 400 }))
+        return next(new Error('In-valid account', { cause: 200 }))
     }
     if (guardian.emailCode !== parseInt(emailCode)) {
-        return next(new Error('In-valid reset code', { cause: 400 }))
+        return next(new Error('In-valid reset code', { cause: 200 }))
     }
     guardian.emailCode = null;
     guardian.confirmEmail = true
@@ -161,7 +161,7 @@ export const loginGuardian = asyncHandler(async (req, res, next) => {
     }
     const match = compare({ plaintext: password, hashValue: guardian.password })
     if (!match) {
-        return next(new Error(`IN-valid login data`, { cause: 400 }))
+        return next(new Error(`IN-valid login data`, { cause: 200 }))
     }
     const access_Token = generateToken({
         payload: { id: guardian._id },
@@ -213,7 +213,7 @@ export const sendCodeEmail = asyncHandler(async (req, res, next) => {
     const emailCode = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)
     const guardian = await guardianModel.findOneAndUpdate({  email: email.toLowerCase() }, { emailCode })
     if (!guardian) {
-        return next(new Error('In-valid account', { cause: 400 }))
+        return next(new Error('In-valid account', { cause: 200 }))
 
     }
     const html = `<!DOCTYPE html>
