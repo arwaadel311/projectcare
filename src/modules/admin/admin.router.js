@@ -29,6 +29,23 @@ router.get('/isApprovedFalse',authAdmin,
 adminController.GetAllDoctorsApprovedFalse)
 
 
+router.get('/allDoctor',authAdmin,
+adminController.GetAllDoctor)
+
+router.get('/allPatient',authAdmin,
+adminController.GetAllPatient)
+
+router.delete('/:doctorId',authAdmin,
+adminController.deleteDoctor)
+
+router.delete('/delete/:patientId',authAdmin,
+adminController.deletePatient)
+
+router.delete('/del/:guardianId',authAdmin,
+adminController.deleteGuardian)
+
+router.get('/allGuardian',authAdmin,
+adminController.GetAllGuardian)
 
 
 

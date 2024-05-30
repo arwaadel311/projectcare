@@ -59,6 +59,82 @@ export const loginAdmin = asyncHandler(async (req, res, next) => {
     })
 })
 
+
+//get all users
+export const GetAllDoctor = async (req, res, next) => {
+
+    const doctors = await doctorModel.find({ isLogin: true })
+    return res.status(200).json({ message: "Done", doctors })
+}
+
+export const GetAllPatient = async (req, res, next) => {
+const patients = await patientModel.find({ isLogin: true })
+    return res.status(200).json({ message: "Done", patients })
+}
+
+
+export const GetAllGuardian = async (req, res, next) => {
+    const guardians = await guardianModel.find({ isLogin: true })
+        return res.status(200).json({ message: "Done", guardians })
+    }
+
+
+    
+export const deleteDoctor= async (req, res, next) => {
+
+   
+    const { doctorId } = req.params
+    const doctor = await doctorModel.findByIdAndDelete(doctorId)
+    if (!doctor) {
+        return next(new Error('In-valid account', { cause: 400 }))
+
+    }
+    
+    const patient = await patientModel.findOne({doctorId});
+    patient.doctorId=null
+    await patient.save()    
+    return res.status(200).json({ message: "Done" })
+}
+
+
+export const deletePatient= async (req, res, next) => {
+
+   
+    const { patientId } = req.params
+    const patient = await patientModel.findByIdAndDelete(patientId)
+    if (!patient) {
+        return next(new Error('In-valid account', { cause: 400 }))
+
+    }
+    
+    const doctor = await doctorModel.findOne({patientId});
+    doctor.patientId=null
+    await doctor.save()
+    
+    const guardian = await guardianModel.findOne({patientId});
+    guardian.patientId=null
+    await guardian.save()
+    
+    return res.status(200).json({ message: "Done" })
+}
+
+export const deleteGuardian= async (req, res, next) => {
+
+   
+    const { guardianId } = req.params
+    const guardian = await guardianModel.findByIdAndDelete(guardianId)
+    if (!guardian) {
+        return next(new Error('In-valid account', { cause: 400 }))
+
+    }
+
+    const patient = await patientModel.findOne({guardianId});
+    patient.guardianId=null
+    await patient.save()    
+    
+    return res.status(200).json({ message: "Done" })
+}
+
 //approveAdmin
 export const approveAdmin = async (req, res, next) => {
     const { doctorId } = req.params
