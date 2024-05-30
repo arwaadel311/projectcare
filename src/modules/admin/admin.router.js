@@ -19,7 +19,7 @@ validation(validators.loginAdmin),
 adminController.loginAdmin)
 
 //update isApproved true 
-router.put('/approve/adminTrue/:doctorId',  
+router.put('/approve/adminTrue/:doctorId', authAdmin, 
 adminController.approveAdmin)
 
 
