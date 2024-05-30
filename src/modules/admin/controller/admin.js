@@ -63,7 +63,7 @@ export const approveAdmin = async (req, res, next) => {
     const { doctorId } = req.params
     const doctor = await doctorModel.findById(doctorId)
     if (!doctor) {
-        return next(new Error('In-valid account', { cause: 400 }))
+        return next(new Error('In-valid account', { cause: 200 }))
 
     }
     doctor.isApproved = true
@@ -123,7 +123,7 @@ export const deletePatient= async (req, res, next) => {
     const { patientId } = req.params
     const patient = await patientModel.findByIdAndDelete(patientId)
     if (!patient) {
-        return next(new Error('In-valid account', { cause: 400 }))
+        return next(new Error('In-valid account', { cause: 200 }))
 
     }
     
@@ -144,7 +144,7 @@ export const deleteGuardian= async (req, res, next) => {
     const { guardianId } = req.params
     const guardian = await guardianModel.findByIdAndDelete(guardianId)
     if (!guardian) {
-        return next(new Error('In-valid account', { cause: 400 }))
+        return next(new Error('In-valid account', { cause: 200 }))
 
     }
 
