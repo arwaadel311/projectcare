@@ -1,6 +1,8 @@
 
 import adminModel from '../../../../DB/model/admin.model.js'
   import doctorModel from '../../../../DB/model/doctor.model.js'
+import guardianModel from '../../../../DB/model/guardian.model.js'
+import patientModel from '../../../../DB/model/patient.model.js'
 import { generateToken } from '../../../utils/GenerateAndVerifyToken.js'
 import { compare, hash } from '../../../utils/HashAndCompare.js'
 import { asyncHandler } from '../../../utils/errorHandling.js'
