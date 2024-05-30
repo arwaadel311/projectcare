@@ -21,16 +21,25 @@ export const loginAdmin = asyncHandler(async (req, res, next) => {
     //check email exist
     const admin = await adminModel.findOne({ email })
     if (!admin) {
-        return next(new Error(`email not exist`, { cause: 404 }))
+        return res.status(200).json({
+            
+          status:"false",
+            message: "email not exist"
+        })
     }
    
  
     const match = compare({ plaintext: password, hashValue: admin.password })
-    if (!match) {
-        return next(new Error(`IN-valid password`, { cause: 404 }))
-
-    }
+    if (!match){
+        return res.status(200).json({
+        
+        status:"false",
+        message: "In-valid password"
     
+})
+}
+
+
     const access_Token = generateToken({
         payload: { id: admin._id },
         expiresIn: 60 * 60 * 24 * 30 * 12 
@@ -42,13 +51,13 @@ export const loginAdmin = asyncHandler(async (req, res, next) => {
     const adminID_token = { id: admin._id }
     await admin.save()
     return res.status(200).json({
+        status:"true",
         message: "Done admin login",
         access_Token,
         refresh_token,
         adminID_token
     })
 })
-
 
 //approveAdmin
 export const approveAdmin = async (req, res, next) => {
