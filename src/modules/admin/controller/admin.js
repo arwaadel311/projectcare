@@ -60,6 +60,31 @@ export const loginAdmin = asyncHandler(async (req, res, next) => {
 })
 
 
+//approveAdmin
+export const approveAdmin = async (req, res, next) => {
+    const { doctorId } = req.params
+    const doctor = await doctorModel.findById(doctorId)
+    if (!doctor) {
+        return next(new Error('In-valid account', { cause: 400 }))
+
+    }
+    doctor.isApproved = true
+    await doctor.save()
+    return res.status(200).json({ message: "Done Approved" })
+}
+
+//get all doctor request
+export const GetAllDoctorsApprovedFalse = async (req, res, next) => {
+
+    const doctors = await doctorModel.find({ isApproved: false })
+
+    return res.status(200).json({ message: "Done not Approved", doctors })
+}
+
+
+
+
+
 //get all users
 export const GetAllDoctor = async (req, res, next) => {
 
@@ -77,9 +102,11 @@ export const GetAllGuardian = async (req, res, next) => {
     const guardians = await guardianModel.find({ isLogin: true })
         return res.status(200).json({ message: "Done", guardians })
     }
-
-
     
+
+
+
+//get all doctor request
 export const deleteDoctor= async (req, res, next) => {
 
    
@@ -134,30 +161,6 @@ export const deleteGuardian= async (req, res, next) => {
     
     return res.status(200).json({ message: "Done" })
 }
-
-//approveAdmin
-export const approveAdmin = async (req, res, next) => {
-    const { doctorId } = req.params
-    const doctor = await doctorModel.findById(doctorId)
-    if (!doctor) {
-        return next(new Error('In-valid account', { cause: 400 }))
-
-    }
-    doctor.isApproved = true
-    await doctor.save()
-    return res.status(200).json({ message: "Done Approved" })
-}
-
-//get all doctor request
-export const GetAllDoctorsApprovedFalse = async (req, res, next) => {
-
-    const doctors = await doctorModel.find({ isApproved: false })
-
-    return res.status(200).json({ message: "Done not Approved", doctors })
-}
-
-
-
 
 
 
