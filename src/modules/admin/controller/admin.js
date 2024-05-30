@@ -13,9 +13,6 @@ export const admin = async (req, res, next) => {
     return res.status(200).json({ message: "Done", admin })
 }
 
-
-
-
 export const loginAdmin = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body
     
@@ -61,7 +58,6 @@ export const loginAdmin = asyncHandler(async (req, res, next) => {
     })
 })
 
-
 //approveAdmin
 export const approveAdmin = async (req, res, next) => {
     const { doctorId } = req.params
@@ -74,7 +70,6 @@ export const approveAdmin = async (req, res, next) => {
     await doctor.save()
     return res.status(200).json({ message: "Done Approved" })
 }
-
 //get all doctor request
 export const GetAllDoctorsApprovedFalse = async (req, res, next) => {
 
@@ -82,10 +77,6 @@ export const GetAllDoctorsApprovedFalse = async (req, res, next) => {
 
     return res.status(200).json({ message: "Done not Approved", doctors })
 }
-
-
-
-
 
 //get all users
 export const GetAllDoctor = async (req, res, next) => {
