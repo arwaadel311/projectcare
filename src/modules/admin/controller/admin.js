@@ -156,7 +156,7 @@ export const deleteGuardian= async (req, res, next) => {
 
 export const signUpAdmin = asyncHandler(async (req, res, next) => {
     const { email,userName, password } = req.body
-    const checkAdmin = await adminModel.findOne({ email: email.toLowerCase() })
+    const checkAdmin = await adminModel.findOne({ email })
     if (checkAdmin) {
         return next(new Error(`Email exist`, { cause: 404 }))
     }
