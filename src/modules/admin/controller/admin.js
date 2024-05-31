@@ -154,15 +154,15 @@ export const deleteGuardian= async (req, res, next) => {
 
 
 
-// export const signUpAdmin = asyncHandler(async (req, res, next) => {
-//     const { email,userName, password } = req.body
-//     const checkAdmin = await adminModel.findOne({ email: email.toLowerCase() })
-//     if (checkAdmin) {
-//         return next(new Error(`Email exist`, { cause: 404 }))
-//     }
-//     const hashPassword = hash({ plaintext: password })
-//     const { _id } = await adminModel.create({
-//         userName  , email, password: hashPassword,
-//     })
-//     return res.status(200).json({ message: "Done admin signUp",_id})
-// })
+export const signUpAdmin = asyncHandler(async (req, res, next) => {
+    const { email,userName, password } = req.body
+    const checkAdmin = await adminModel.findOne({ email: email.toLowerCase() })
+    if (checkAdmin) {
+        return next(new Error(`Email exist`, { cause: 404 }))
+    }
+    const hashPassword = hash({ plaintext: password })
+    const { _id } = await adminModel.create({
+        userName  , email, password: hashPassword,
+    })
+    return res.status(200).json({ message: "Done admin signUp",_id})
+})

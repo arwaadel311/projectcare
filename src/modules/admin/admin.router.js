@@ -49,9 +49,9 @@ adminController.GetAllGuardian)
 
 
 
-// //signUp
-// router.post('/signUpAdmin',
-// //validation(validators.Admin),
-// adminController.signUpAdmin)
+//signUp
+router.post('/signUpAdmin',
+//validation(validators.Admin),
+adminController.signUpAdmin)
 
 export default router
