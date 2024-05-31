@@ -39,7 +39,7 @@ export const validation = (schema, considerHeaders = false) => {
 
         const validationResult = schema.validate(inputs, { abortEarly: false })
         if (validationResult.error?.details) {
-            return res.status(400).json({
+            return res.status(200).json({
                 message: "validationErr",
                 validationResult: validationResult.error.details
             })
