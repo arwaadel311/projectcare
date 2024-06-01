@@ -175,13 +175,13 @@ export const signupDoctor = asyncHandler(async (req, res, next) => {
     const checkAdmin = await adminModel.findOne({ email : email.toLowerCase()})
     const checkPatient = await patientModel.findOne({ email : email.toLowerCase()})
     if (checkDoctor) {
-        return next(new Error(`Email exist`, { cause: 404 }))
+        return next(new Error(`Email exist`, { cause: 200 }))
     }
     if (checkDoctor !== checkPatient) {
-        return next(new Error(`duplicated  patient email`, { cause: 409 }))
+        return next(new Error(`duplicated  patient email`, { cause: 200 }))
     }
     if (checkDoctor !== checkAdmin) {
-        return next(new Error(`duplicated admin email`, { cause: 409 }))
+        return next(new Error(`duplicated admin email`, { cause: 200 }))
     }
     //send email()
     const emailCode = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)
@@ -263,7 +263,7 @@ export const signupDoctor = asyncHandler(async (req, res, next) => {
     </body>
     </html>`
 
-    if (!await sendEmail({ to: email, subject: 'confirmation-email', html })) { return next(new Error(`fail to send this email`, { cause: 400 })) }
+    if (!await sendEmail({ to: email, subject: 'confirmation-email', html })) { return next(new Error(`fail to send this email`, { cause: 200 })) }
     ///hash password
     const hashPassword = hash({ plaintext: password })
     //save//create doctor 
