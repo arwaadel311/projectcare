@@ -171,9 +171,9 @@ export const deleteDoctor = asyncHandler(async (req, res, next) => {
 export const signupDoctor = asyncHandler(async (req, res, next) => {
     const { firstName, lastName, clinicAddress, phone_one, phone_two, specialization, email, password } = req.body
     //check email exist
-    const checkDoctor = await doctorModel.findOne({ email })
-    const checkAdmin = await adminModel.findOne({ email })
-    const checkPatient = await patientModel.findOne({ email})
+    const checkDoctor = await doctorModel.findOne({ email : email.toLowerCase()})
+    const checkAdmin = await adminModel.findOne({ email : email.toLowerCase()})
+    const checkPatient = await patientModel.findOne({ email : email.toLowerCase()})
     if (checkDoctor) {
         return next(new Error(`Email exist`, { cause: 404 }))
     }
