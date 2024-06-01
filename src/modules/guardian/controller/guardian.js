@@ -24,14 +24,14 @@ export const signupGuardian = asyncHandler(async (req, res, next) => {
     const checkDoctor = await doctorModel.findOne({ email: email.toLowerCase() })
     const checkAdmin = await adminModel.findOne({ email: email.toLowerCase() })
     if (checkGuardian) {
-        return next(new Error(`Email exist`, { cause: 409 }))
+        return next(new Error(`Email exist`, { cause: 200 }))
     }
     if (checkGuardian !== checkDoctor) {
-        return next(new Error(`duplicated Doctor email`, { cause: 409 }))
+        return next(new Error(`duplicated Doctor email`, { cause: 200}))
     }
 
     if (checkGuardian !== checkAdmin) {
-        return next(new Error(`duplicated Admin email`, { cause: 409 }))
+        return next(new Error(`duplicated Admin email`, { cause: 200 }))
     }
     
     if (checkGuardian !== checkPatient) {
