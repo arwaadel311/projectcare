@@ -7,6 +7,7 @@ import patientModel from '../../../../DB/model/patient.model.js'
 import QRCode from "qrcode"
 import doctorModel from '../../../../DB/model/doctor.model.js'
 import adminModel from '../../../../DB/model/admin.model.js'
+import guardianModel from '../../../../DB/model/guardian.model.js'
 
 
 //all patient
@@ -24,6 +25,7 @@ export const signupPatient = asyncHandler(async (req, res, next) => {
     const checkPatient = await patientModel.findOne({ email: email.toLowerCase() })
     const checkDoctor = await doctorModel.findOne({ email: email.toLowerCase() })
     const checkAdmin = await adminModel.findOne({ email: email.toLowerCase() })
+    const checkGuardian = await guardianModel.findOne({ email: email.toLowerCase() })
     if (checkPatient) {
         return next(new Error(`Email exist`, { cause: 409 }))
     }
@@ -33,6 +35,10 @@ export const signupPatient = asyncHandler(async (req, res, next) => {
 
     if (checkPatient !== checkAdmin) {
         return next(new Error(`duplicated Admin email`, { cause: 409 }))
+    }
+    
+    if (checkPatient !== checkGuardian) {
+        return next(new Error(`duplicated guardian email`, { cause: 409 }))
     }
     const emailCode = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)
     const html = `<!DOCTYPE html>

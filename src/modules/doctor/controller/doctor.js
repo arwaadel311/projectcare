@@ -9,6 +9,8 @@ import cloudinary from '../../../utils/cloudinary.js'
 import adminModel from '../../../../DB/model/admin.model.js'
 import seizureModel from "../../../../DB/model/seizure.model.js";
 
+import guardianModel from '../../../../DB/model/guardian.model.js'
+
 //all doctors
 export const doctors = async (req, res, next) => {
     const doctors = await doctorModel.find().select('-password -confirmEmail -emailCode -verifyEmail -EmailPasswordCode -isLogin')
@@ -62,6 +64,7 @@ export const signupDoctor = asyncHandler(async (req, res, next) => {
     const checkDoctor = await doctorModel.findOne({ email: email.toLowerCase() })
     const checkAdmin = await adminModel.findOne({ email: email.toLowerCase() })
     const checkPatient = await patientModel.findOne({ email: email.toLowerCase() })
+    const checkGuardian = await guardianModel.findOne({ email: email.toLowerCase() })
     if (checkDoctor) {
         return next(new Error(`Email exist`, { cause: 404 }))
     }
@@ -70,6 +73,9 @@ export const signupDoctor = asyncHandler(async (req, res, next) => {
     }
     if (checkDoctor !== checkAdmin) {
         return next(new Error(`duplicated admin email`, { cause: 409 }))
+    }
+    if (checkDoctor !== checkGuardian) {
+        return next(new Error(`duplicated guardian email`, { cause: 409 }))
     }
     //send email()
     const emailCode = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)
