@@ -55,6 +55,8 @@ validation(validators.signUpDoctor),
 doctorController.signupDoctor)
 //login
 router.post('/loginDoctor',
+
+fileUpload(fileValidation.image).none(),
 validation(validators.loginDoctor),
 doctorController.loginDoctor)
 //logout

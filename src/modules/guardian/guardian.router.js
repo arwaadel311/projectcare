@@ -4,6 +4,7 @@ import * as guardianController from "./controller/guardian.js"
 import * as validators from './guardian.validation.js'
 import {validation} from'../../middleware/validation.js'
 import { authGuardian } from "../../middleware/auth.js";
+import { fileUpload, fileValidation } from "../../utils/multer.js";
 
 const router = Router({mergeParams:true})
 
@@ -20,10 +21,14 @@ router.delete('/:guardianId',authGuardian, guardianController.deleteGuardian);
 
 //signup
 router.post('/signupGuardian',
+
+fileUpload(fileValidation.image).none(),
 validation(validators.signUpGuardian),
 guardianController.signupGuardian)
 //login
 router.post('/loginGuardian',
+
+fileUpload(fileValidation.image).none(),
 validation(validators.loginGuardian),
 guardianController.loginGuardian)
 

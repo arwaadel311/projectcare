@@ -4,6 +4,7 @@ import * as patientController from "./controller/patient.js"
 import * as validators from './patient.validation.js'
 import {validation} from'../../middleware/validation.js'
 import { authPatient } from "../../middleware/auth.js";
+import { fileUpload, fileValidation } from "../../utils/multer.js";
 
 const router = Router()
 
@@ -23,10 +24,14 @@ router.delete('/:patientId',authPatient, patientController.deletePatient);
 
 //signup
 router.post('/signupPatient',
+
+fileUpload(fileValidation.image).none(),
 validation(validators.signUpPatient),
 patientController.signupPatient)
 //login
 router.post('/loginPatient',
+
+fileUpload(fileValidation.image).none(),
 validation(validators.loginPatient),
 patientController.loginPatient)
 //logout
