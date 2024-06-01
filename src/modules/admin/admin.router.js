@@ -7,6 +7,7 @@ import { validation } from "../../middleware/validation.js";
 import * as validators from './admin.validation.js'
 import { authAdmin } from "../../middleware/auth.js";
 
+import { fileUpload, fileValidation } from "../../utils/multer.js";
 
 const router = Router()
 //get Admin
@@ -15,6 +16,8 @@ router.get("/",adminController.admin)
 
 //login
 router.post('/loginAdmin',
+
+fileUpload(fileValidation.image).none(),
 validation(validators.loginAdmin),
 adminController.loginAdmin)
 
@@ -51,6 +54,8 @@ adminController.GetAllGuardian)
 
 //signUp
 router.post('/signUpAdmin',
+
+fileUpload(fileValidation.image).none(),
 //validation(validators.Admin),
 adminController.signUpAdmin)
 

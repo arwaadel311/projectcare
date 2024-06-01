@@ -302,6 +302,7 @@ export const confirmEmailDoctor = asyncHandler(async (req, res, next) => {
 
     return res.status(200).json({ message: "Done" })
 })
+
 export const loginDoctor = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body
     //check email exist
@@ -331,9 +332,7 @@ export const loginDoctor = asyncHandler(async (req, res, next) => {
         expiresIn: 60 * 60 * 24 * 365 //1 year
     })
     const doctorID_token = { id: doctor._id }
-
     doctor.isLogin = true
-
     doctor.status = 'online'
     await doctor.save()
     return res.status(200).json({
