@@ -71,12 +71,12 @@ export const sendReply =asyncHandler( async (req, res, next) => {
   const { complaintId } = req.params
   const complaint = await complaintModel.findById(complaintId)
   if (!complaint) {
-      return next(new Error('In-valid complaint Id', { cause: 400 }))
+      return next(new Error('In-valid complaint Id', { cause: 200 }))
 
   }
   const admin = await adminModel.findById(req.admin._id)
   if (!admin) {
-    return next(new Error("Not  llp register account", { cause: 404 }))
+    return next(new Error("Not  llp register account", { cause: 200 }))
   }
   
   complaint.replyComplaint = description
@@ -156,7 +156,7 @@ care bracelet
 
 if (!await sendEmail({ to:complaint.email, subject: 'reply complaint', html })) {
 
-    return next(new Error("fail to send this email", { cause: 400 }))
+    return next(new Error("fail to send this email", { cause: 200 }))
 
 }
  
