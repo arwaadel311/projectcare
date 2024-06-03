@@ -509,7 +509,7 @@ export const Rate = asyncHandler(async (req, res, next) => {
     patient.heartRate = heartRate
     patient.motionRate = motionRate
     await patient.save()
-    if (patient.heartbeat > 150 || patient.motionRate>100) {
+    if (patient.heartRate > 150 || patient.motionRate>100) {
 
         const patientSeizure = await seizureModel.create({
             heartRate, motionRate, patientId: patientId 
