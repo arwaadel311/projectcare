@@ -226,7 +226,7 @@ export const QRPatient = asyncHandler(async (req, res, next) => {
         })
         //console.log(url);
 
-        console.log(req.protocol);        
+       // console.log(req.protocol);        
 })
 
 // Generate QR Patient 
@@ -246,7 +246,7 @@ export const GetQRPatient = asyncHandler(async (req, res, next) => {
         })
         //console.log(url);
 
-        console.log(req.protocol);
+        //console.log(req.protocol);
     })
 //send code email Again
 export const sendCodeEmail = asyncHandler(async (req, res, next) => {
