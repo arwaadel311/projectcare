@@ -15,7 +15,6 @@ const initApp = (app, express) => {
     //convert Buffer Data
     app.use(express.json({}))
     //Setup API Routing 
-   
     app.use(cors())
     
     app.use(`/rate`, rateRouter)
