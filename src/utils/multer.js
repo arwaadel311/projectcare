@@ -62,13 +62,13 @@ export const fileValidation = {
 }
 export function fileUpload(customValidation = []) {
     const storage = multer.diskStorage({})
-    function fileFilter(req, file, cb) {
-        if (customValidation.includes(file.mimetype)) {
-            cb(null, true)
-        } else {
-            cb('In-valid file format', false)
-        }
-    }
+    // function fileFilter(req, file, cb) {
+    //     if (customValidation.includes(file.mimetype)) {
+    //         cb(null, true)
+    //     } else {
+    //         cb('In-valid file format', false)
+    //     }
+    // }
     const upload = multer({ fileFilter, storage:storage })
     return upload
 }
