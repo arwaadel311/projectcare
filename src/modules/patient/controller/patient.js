@@ -506,7 +506,7 @@ export const Rate = asyncHandler(async (req, res, next) => {
     if (!patient) {
         return next(new Error("Not register account", { cause: 404 }))
     }
-    patient.heartbeat = heartRate
+    patient.heartRate = heartRate
     patient.motionRate = motionRate
     await patient.save()
     if (patient.heartbeat > 150 || patient.motionRate>100) {
