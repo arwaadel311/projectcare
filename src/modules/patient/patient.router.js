@@ -8,8 +8,8 @@ import { fileUpload, fileValidation } from "../../utils/multer.js";
 
 const router = Router()
 
-router.get("/http", (req)=>{
-    console.log(req.protocol);
+router.get("/http", (req,res)=>{
+    return res.json( req.protocol )
 })
 //all patient
 router.get("/",patientController.patients)
