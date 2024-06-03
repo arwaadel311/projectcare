@@ -69,7 +69,7 @@ export function fileUpload(customValidation = []) {
     //         cb('In-valid file format', false)
     //     }
     // }
-    const upload = multer({ fileFilter, storage:storage })
+    const upload = multer({ storage:storage })
     return upload
 }
 
