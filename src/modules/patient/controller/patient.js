@@ -8,6 +8,7 @@ import QRCode from "qrcode"
 import doctorModel from '../../../../DB/model/doctor.model.js'
 import adminModel from '../../../../DB/model/admin.model.js'
 import guardianModel from '../../../../DB/model/guardian.model.js'
+import seizureModel from '../../../../DB/model/seizure.model.js'
 
 
 //all patient
@@ -496,6 +497,36 @@ export const deletePatient = asyncHandler(async (req, res, next) => {
     }
     return res.status(200).json({ message: "Done patient deleted", })
 })
+
+//post Hardware Rate
+export const Rate = asyncHandler(async (req, res, next) => {
+    const { heartRate, motionRate } = req.body
+    const { patientId } = req.params
+    const patient = await patientModel.findById(patientId)
+    if (!patient) {
+        return next(new Error("Not register account", { cause: 404 }))
+    }
+    patient.heartbeat = heartRate
+    patient.motionRate = motionRate
+    await patient.save()
+    if (patient.heartbeat > 150 || patient.motionRate>100) {
+
+        const patientSeizure = await seizureModel.create({
+            heartRate, motionRate, patientId: patientId 
+        })
+      
+        if (patientSeizure.type==1) {
+        patient.seizureHistory.push(patientSeizure)
+        }
+        
+        await patient.save()
+       
+      //  return res.status(200).json({ message: "Done", patientSeizure })
+ }
+    return res.status(200).json({ message: "Done", patient })
+
+})
+
 // //update patient
 // export const updatePatient = asyncHandler(async (req, res, next) => {
 //     const patient = await patientModel.findByIdAndUpdate(req.params.patientId,
@@ -577,20 +608,7 @@ export const deletePatient = asyncHandler(async (req, res, next) => {
 
 
 
-//post Hardware Rate
-export const Rate = asyncHandler(async (req, res, next) => {
-    const { heartRate, motionRate } = req.body
-    const { patientId } = req.params
-    const patient = await patientModel.findById(patientId)
-    if (!patient) {
-        return next(new Error("Not register account", { cause: 404 }))
-    }
-    patient.heartRate = heartRate
-    patient.motionRate = motionRate
-    await patient.save()
-    return res.status(200).json({ message: "Done", heartRate, motionRate })
 
-})
 
 //get rates
 export const Rates = asyncHandler(async (req, res, next) => {
