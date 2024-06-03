@@ -440,7 +440,7 @@ export const guardianById = asyncHandler(async (req, res, next) => {
 })
 //update guardian
 export const updateGuardian = asyncHandler(async (req, res, next) => {
-    const guardian= await guardianModel.findByIdAndUpdate(req.params.id,
+    const guardian= await guardianModel.findByIdAndUpdate(req.guardian._id,
         req.body, { new: true });
     if (!guardian) {
         return next(new Error(`guardian not found `, { cause: 404 }))
