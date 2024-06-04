@@ -13,57 +13,68 @@ export const getComplaintModule = asyncHandler(async (req, res, next) => {
   const Complaints = await complaintModel.find()
   return res.status(201).json({ message: 'Done', Complaints })
 });
+
+
 //doctor send complaint
 export const sendComplaintDoctor = asyncHandler(async (req, res, next) => {
- // const { email, complaint } = req.body;
- const {  complaint } = req.body;
-  const doctor = await doctorModel.findById(req.doctor._id)
-  if (!doctor) {
-    return next(new Error("Not  llp register account", { cause: 404 }))
-  }
-  if (!doctor.isLogin) {
-    return next(new Error("please login", { cause: 404 }))
-  }
-  const createComplaint = await complaintModel.create({ complaint, role: doctor.role, email:doctor.email})
-  return res.status(201).json({ message: 'Done', createComplaint })
-});
-
-//patient send complaint
-export const sendComplaintPatient = asyncHandler(async (req, res, next) => {
-
+  // const { email, complaint } = req.body;
   const {  complaint } = req.body;
-  const patient = await patientModel.findById(req.patient._id)
-  if (!patient) {
-    return next(new Error("Not register account", { cause: 404 }))
-  }
-  if (!patient.isLogin) {
-    return next(new Error("please login", { cause: 404 }))
-
-  }
-  const createComplaint = await complaintModel.create({ complaint, email:patient.email, role: patient.role })
-  return res.status(201).json({ message: 'Done', createComplaint })
-});
-
-//guardian send complaint
-export const sendComplaintGuardian = asyncHandler(async (req, res, next) => {
-
-  const {  complaint } = req.body;
-  const guardian = await guardianModel.findById(req.guardian._id)
-  if (!guardian) {
-    return next(new Error("Not register account", { cause: 404 }))
-  }
-  if (!guardian.isLogin) {
-    return next(new Error("please login", { cause: 404 }))
-
-  }
-
-
-
-
-
-  const createComplaint = await complaintModel.create({ complaint, email:guardian.email, role: guardian.role })
-  return res.status(201).json({ message: 'Done', createComplaint })
-});
+   const doctor = await doctorModel.findById(req.doctor._id)
+  
+   if (!doctor) {
+     return next(new Error("Not  llp register account", { cause: 404 }))
+   }
+   if (!doctor.isLogin) {
+     return next(new Error("please login", { cause: 404 }))
+   }
+   const createComplaint = await complaintModel.create({ complaint, role: doctor.role, email:doctor.email ,
+     firstName:doctor.firstName ,lastName:doctor.lastName,
+      phone_one:doctor.phone_one })
+   return res.status(201).json({ message: 'Done', createComplaint })
+ });
+ 
+ //patient send complaint
+ export const sendComplaintPatient = asyncHandler(async (req, res, next) => {
+ 
+   const {  complaint } = req.body;
+   const patient = await patientModel.findById(req.patient._id)
+   if (!patient) {
+     return next(new Error("Not register account", { cause: 404 }))
+   }
+   if (!patient.isLogin) {
+     return next(new Error("please login", { cause: 404 }))
+ 
+   }
+   const createComplaint = await complaintModel.create({ complaint, email:patient.email, role: patient.role, 
+     firstName:patient.firstName ,lastName:patient.lastName,
+     phone_one:patient.phone_one
+   })
+   return res.status(201).json({ message: 'Done', createComplaint })
+ });
+ 
+ //guardian send complaint
+ export const sendComplaintGuardian = asyncHandler(async (req, res, next) => {
+ 
+   const {  complaint } = req.body;
+   const guardian = await guardianModel.findById(req.guardian._id)
+   if (!guardian) {
+     return next(new Error("Not register account", { cause: 404 }))
+   }
+   if (!guardian.isLogin) {
+     return next(new Error("please login", { cause: 404 }))
+ 
+   }
+ 
+ 
+ 
+ 
+ 
+   const createComplaint = await complaintModel.create({ complaint, email:guardian.email, role: guardian.role,
+     firstName:guardian.firstName ,lastName:guardian.lastName,
+     phone_one:guardian.phone_one
+    })
+   return res.status(201).json({ message: 'Done', createComplaint })
+ });
 
 //admin send reply complaint feedback
 export const sendReply =asyncHandler( async (req, res, next) => {
