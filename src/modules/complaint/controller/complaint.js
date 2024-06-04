@@ -10,7 +10,7 @@ import adminModel from "../../../../DB/model/admin.model.js";
 
 //all complaints
 export const getComplaintModule = asyncHandler(async (req, res, next) => {
-  const Complaints = await complaintModel.find()
+  const Complaints = await complaintModel.find({ replyComplaint: null })
   return res.status(201).json({ message: 'Done', Complaints })
 });
 
