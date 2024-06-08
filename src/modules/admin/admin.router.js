@@ -13,13 +13,20 @@ const router = Router()
 //get Admin
 router.get("/",adminController.admin)
 
-
+//add picture profile
+router.patch("/profilePic",authAdmin,fileUpload(fileValidation.image).fields([
+    { name: 'profileImage', maxCount: 1 }]),adminController.adminProfile)
 //login
 router.post('/loginAdmin',
 
 fileUpload(fileValidation.image).none(),
 validation(validators.loginAdmin),
 adminController.loginAdmin)
+
+
+//logout
+router.post('/logoutAdmin',authAdmin,
+adminController.logoutAdmin)
 
 //update isApproved true 
 router.put('/approve/adminTrue/:doctorId', authAdmin, 

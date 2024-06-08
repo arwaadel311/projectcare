@@ -13,41 +13,72 @@ export const admin = async (req, res, next) => {
     return res.status(200).json({ message: "Done", admin })
 }
 
+//add image profile
+export const adminProfile = async (req, res, next) => {
+    if (!req.files) {
+        return res.status(200).json({ message: "file is required" })
+    }
+    
+    const {secure_url}= await cloudinary.uploader.upload(req.files?.profileImage[0].path,
+        
+        { folder: `${process.env.APP_NAME}/admin/profileImage` })
+
+    const admin = await adminModel.findByIdAndUpdate(req.admin._id,
+        {profileImage:secure_url},{new:true})
+    return res.status(200).json({ message: "Done", admin })
+}
+
+//logout
+export const logoutAdmin= asyncHandler(async (req, res, next) => {
+
+    const admin = await adminModel.updateOne({ _id: req.admin._id }, { status: 'offline', isLogin: 'false' })
+
+    return res.status(200).json({ message: "Done is logout" })
+})
+
+//login admin
 export const loginAdmin = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body
+
+
     //check email exist
     const admin = await adminModel.findOne({ email })
     if (!admin) {
         return res.status(200).json({
             
-          status:"false",
-            message: "email not exist"
-        })
+            status:"false",
+              message: "email not exist"
+          })
     }
     const match = compare({ plaintext: password, hashValue: admin.password })
-    if (!match){
-        return res.status(200).json({
+    if (!match) { return res.status(200).json({
+            
         status:"false",
-        message: "In-valid password"
-})}
+          message: "In-valid password"
+      })
+    }
     const access_Token = generateToken({
         payload: { id: admin._id },
-        expiresIn: 60 * 60 * 24 * 30 * 12 
+        expiresIn: 60 * 30 * 24
     })
     const refresh_token = generateToken({
         payload: { id: admin._id },
         expiresIn: 60 * 60 * 24 * 365
     })
     const adminID_token = { id: admin._id }
+    admin.isLogin = true
+    admin.status = 'online'
     await admin.save()
     return res.status(200).json({
         status:"true",
         message: "Done admin login",
+        data:req.body,
         access_Token,
         refresh_token,
         adminID_token
     })
 })
+
 
 //approveAdmin
 export const approveAdmin = async (req, res, next) => {
@@ -155,14 +186,17 @@ export const deleteGuardian= async (req, res, next) => {
 
 
 export const signUpAdmin = asyncHandler(async (req, res, next) => {
-    const { email,userName, password } = req.body
+    const { email, firstName,lastName, password } = req.body
     const checkAdmin = await adminModel.findOne({ email })
     if (checkAdmin) {
-        return next(new Error(`Email exist`, { cause: 404 }))
+        return next(new Error(`Email exist`, { cause: 200 }))
     }
     const hashPassword = hash({ plaintext: password })
+
     const { _id } = await adminModel.create({
-        userName  , email, password: hashPassword,
+        firstName,lastName, email, password: hashPassword,
     })
-    return res.status(200).json({ message: "Done admin signUp",_id})
+
+
+    return res.status(201).json({ message: "Done admin signUp", _id })
 })
