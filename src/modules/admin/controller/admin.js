@@ -7,6 +7,8 @@ import { generateToken } from '../../../utils/GenerateAndVerifyToken.js'
 import { compare, hash } from '../../../utils/HashAndCompare.js'
 import { asyncHandler } from '../../../utils/errorHandling.js'
 
+import cloudinary from '../../../utils/cloudinary.js'
+
 
 export const admin = async (req, res, next) => {
     const admin = await adminModel.find()
