@@ -18,7 +18,7 @@ const patientSchema = new Schema({
   phone_two: {type: String,required: true,},
   heartRate:{type:Number,default:null},
   motionRate:{type:Number,default:null},
- 
+  currentMotionRate:{type:Number,default:null},
   //location
   lat:{type:String},
   lng:{type:String},

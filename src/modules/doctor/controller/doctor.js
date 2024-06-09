@@ -14,7 +14,7 @@ import guardianModel from '../../../../DB/model/guardian.model.js'
 //all doctors
 export const doctors = async (req, res, next) => {
     const doctors = await doctorModel.find().select('-password -confirmEmail -emailCode -verifyEmail -EmailPasswordCode -isLogin')
-    .populate({ path: 'patientId', select: 'firstName lastName email  phone_one heartRate motionRate' })
+    .populate({ path: 'patientId', select: 'firstName lastName email  phone_one heartRate motionRate currentMotionRate' })
     return res.status(200).json({ message: "Done", doctors })
 }
 

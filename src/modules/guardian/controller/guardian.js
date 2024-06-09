@@ -15,7 +15,7 @@ export const guardians = asyncHandler(async (req, res, next) => {
     .populate({ path: 'patientId', select: ' firstName lastName email  phone_one' })
     return res.status(200).json({ message: "Done", guardian })
 })
-//signUp
+//signUp guardian
 export const signupGuardian = asyncHandler(async (req, res, next) => {
     const { firstName, lastName, email, password, gender, homeAddress,phone_one, phone_two, birthDate } = req.body
     

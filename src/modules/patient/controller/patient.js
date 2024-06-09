@@ -500,7 +500,7 @@ export const deletePatient = asyncHandler(async (req, res, next) => {
 
 //post Hardware Rate
 export const Rate = asyncHandler(async (req, res, next) => {
-    const { heartRate, motionRate } = req.body
+    const { heartRate, motionRate,currentMotionRate } = req.body
     const { patientId } = req.params
     const patient = await patientModel.findById(patientId)
     if (!patient) {
@@ -508,8 +508,10 @@ export const Rate = asyncHandler(async (req, res, next) => {
     }
     patient.heartRate = heartRate
     patient.motionRate = motionRate
+    patient.currentMotionRate=currentMotionRate
     await patient.save()
-    if (patient.heartRate > 150 || patient.motionRate>100) {
+    if (patient.heartbeat > 130 || patient.heartbeat <50 && patient.motionRate>2) {
+        
 
         const patientSeizure = await seizureModel.create({
             heartRate, motionRate, patientId: patientId 
