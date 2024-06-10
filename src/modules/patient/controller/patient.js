@@ -538,7 +538,7 @@ export const sendLocation = asyncHandler(async (req, res, next) => {
             return next(new Error("Not register account", { cause: 404 }))
         }
         const patientSeizure = await patientModel.findByIdAndUpdate(req.patient._id)
-        console.log(patientSeizure);
+        
         patientSeizure.lat=lat
         patientSeizure.lng=lng
         patientSeizure.save()
