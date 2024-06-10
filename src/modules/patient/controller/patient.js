@@ -529,6 +529,32 @@ export const Rate = asyncHandler(async (req, res, next) => {
 
 })
 
+
+
+export const sendLocation = asyncHandler(async (req, res, next) => {
+    const {lat,lng}=req.body
+        const patient = await patientModel.findById(req.patient._id)
+        if (!patient) {
+            return next(new Error("Not register account", { cause: 404 }))
+        }
+        const patientSeizure = await patientModel.findByIdAndUpdate(req.patient._id)
+        console.log(patientSeizure);
+        patientSeizure.lat=lat
+        patientSeizure.lng=lng
+        patientSeizure.save()
+    //     const patientSeizurePP = await patientModel.findOne(req.patient._id)
+    // console.log(patientSeizurePP);
+        return res.status(200).json({ message: "Done",patientSeizure})
+    
+    })
+    
+
+
+
+
+
+
+
 // //update patient
 // export const updatePatient = asyncHandler(async (req, res, next) => {
 //     const patient = await patientModel.findByIdAndUpdate(req.params.patientId,

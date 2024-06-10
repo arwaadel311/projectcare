@@ -93,6 +93,7 @@ patientController.resetPassword)
 
 router.post("/rate/:patientId",patientController.Rate)
 
+router.post("/sendLocation",authPatient,patientController.sendLocation)
 router.get("/rate/:patientId",patientController.Rates)
 
 
