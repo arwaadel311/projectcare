@@ -42,6 +42,8 @@ router.get("/getHistory",authDoctor,doctorController.getHistorySeizures)
 router.get("/getHistory/:patientId",authDoctor,doctorController.getHistorySeizure)
 router.get("/getOnePatient/:patientId",authDoctor,doctorController.getDataOnePatient)
 
+router.get("/getLocation/:patientId",authDoctor,doctorController.getLocation)
+
 
 
 //signUp

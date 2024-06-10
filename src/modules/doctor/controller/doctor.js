@@ -315,6 +315,15 @@ export const getDataOnePatient = asyncHandler(async (req, res, next) => {
 
 })
 
+export const getLocation = asyncHandler(async (req, res, next) => {
+    const {patientId}=req.params
+        // const patientDocID = await patientModel.find({ doctorId: req.doctor._id })
+        // //return res.status(200).json({ message: "Done", patientDocID })
+        const patientSeizure = await patientModel.findById(patientId)
+            .select("-_id lat lng ")
+          
+        return res.status(200).json({ message: "Done", patientSeizure })
+    })
 // export const generateRefreshToken = asyncHandler(async (req, res, next) => {
 
 
