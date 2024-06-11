@@ -319,7 +319,7 @@ export const getDataOnePatient = asyncHandler(async (req, res, next) => {
 export const getDataHeartbeat = asyncHandler(async (req, res, next) => {
     const { patientId } = req.params
     const OnePatientDocID = await patientModel.findById(patientId)
-    .select('-_id heartbeat motionRate')
+    .select('-_id heartRate motionRate')
    
     if (!OnePatientDocID) {
         return next(new Error("Not register account", { cause: 404 }))
@@ -329,7 +329,7 @@ export const getDataHeartbeat = asyncHandler(async (req, res, next) => {
         return next(new Error('In-valid account', { cause: 400 }))
     }
    // console.log(doctor);
-   if (OnePatientDocID.heartbeat > 130 || OnePatientDocID.heartbeat <50 && OnePatientDocID.motionRate>2) {
+   if (OnePatientDocID.heartRate > 130 || OnePatientDocID.heartRate <50 && OnePatientDocID.motionRate>2) {
 
    const html = `<!DOCTYPE html>
    <html>
