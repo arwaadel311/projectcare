@@ -302,7 +302,7 @@ export const getDataOnePatient = asyncHandler(async (req, res, next) => {
 
     const { patientId } = req.params
     const OnePatientDocID = await patientModel.findById(patientId)
-    .select('-_id firstName birthDate gender homeAddress phone_one guardianIds')
+    .select('-_id firstName birthDate gender homeAddress phone_one guardianIds heartRate currentMotionRate')
    .populate({ path: 'guardianIds', select: '-_id firstName phone_one' })
     if (!OnePatientDocID) {
         return next(new Error("Not register account", { cause: 404 }))
