@@ -319,7 +319,7 @@ export const getDataOnePatient = asyncHandler(async (req, res, next) => {
 export const getDataHeartbeat = asyncHandler(async (req, res, next) => {
     const { patientId } = req.params
     const OnePatientDocID = await patientModel.findById(patientId)
-    .select('-_id heartRate motionRate')
+    .select('-_id heartRate motionRate currentMotionRate')
    
     if (!OnePatientDocID) {
         return next(new Error("Not register account", { cause: 404 }))
