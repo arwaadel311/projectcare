@@ -328,7 +328,7 @@ export const getDataHeartbeat = asyncHandler(async (req, res, next) => {
     if (!doctor) {
         return next(new Error('In-valid account', { cause: 400 }))
     }
-    console.log(doctor);
+   // console.log(doctor);
    if (OnePatientDocID.heartbeat > 130 || OnePatientDocID.heartbeat <50 && OnePatientDocID.motionRate>2) {
 
    const html = `<!DOCTYPE html>
