@@ -20,8 +20,8 @@ const patientSchema = new Schema({
   motionRate:{type:Number,default:null},
   currentMotionRate:{type:Number,default:null},
   //location
-  lat:{type:Number},
-  lng:{type:Number},
+  lat:{type:String},
+  lng:{type:String},
   
   password: { type: String, required: true, },
   gender: { type: String, enum: ['Male', 'Female'], required: true, default: 'Male' },
