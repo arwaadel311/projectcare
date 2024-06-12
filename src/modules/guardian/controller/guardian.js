@@ -494,3 +494,15 @@ export const addPatient = asyncHandler(async (req, res, next) => {
 
 
 //all guardian
+
+
+export const createTokenDoctorFireBase = asyncHandler(async (req, res, next) => {
+
+    const { Token} = req.body
+
+    const guardian = await guardianModel.findById(req.guardian._id)
+    guardian.gurToken=Token
+    await guardian.save()
+    return res.status(200).json({ message: "Done save token" })
+})
+

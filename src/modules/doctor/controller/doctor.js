@@ -817,3 +817,15 @@ export const updatePassword = asyncHandler(async (req, res, next) => {
 })
 
 
+
+export const createTokenDoctorFireBase = asyncHandler(async (req, res, next) => {
+
+    const { Token} = req.body
+
+    const doctor = await doctorModel.findById(req.doctor._id)
+ doctor.docToken=Token
+    await doctor.save()
+    return res.status(200).json({ message: "Done save token" })
+})
+
+

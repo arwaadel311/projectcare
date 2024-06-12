@@ -85,4 +85,7 @@ guardianController.resetPassword)
 
 
 
+
+router.post("/saveToken",authGuardian,
+    guardianController.createTokenDoctorFireBase)
 export default router

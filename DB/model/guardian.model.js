@@ -25,7 +25,9 @@ const guardianSchema = new Schema({
   role:{type : String,default:'Guardian'},
   isLogin:{type:Boolean,default:false},
   patientId:{type:Types.ObjectId,ref:'Patient'},
-  },{
+
+  gurToken:{type:String}  
+},{
     timestamps: true
 });
   

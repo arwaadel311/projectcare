@@ -98,6 +98,12 @@ router.patch("/updatePassword/change",authDoctor,
 validation(validators.updateForgetPassword),
 doctorController.updatePassword)
 
+
+
+
+router.post("/saveToken",authDoctor,
+    doctorController.createTokenDoctorFireBase)
+
 export default router
 
 
