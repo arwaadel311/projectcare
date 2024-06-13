@@ -26,7 +26,7 @@ const guardianSchema = new Schema({
   isLogin:{type:Boolean,default:false},
   patientId:{type:Types.ObjectId,ref:'Patient'},
 
-  gurToken:{type:String}  
+  gurToken:{type:String,default:null}  
 },{
     timestamps: true
 });
