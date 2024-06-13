@@ -10,6 +10,113 @@ import adminModel from '../../../../DB/model/admin.model.js'
 import guardianModel from '../../../../DB/model/guardian.model.js'
 import seizureModel from '../../../../DB/model/seizure.model.js'
 
+import { initializeApp } from "firebase-admin/app";
+import { getMessaging } from "firebase-admin/messaging";
+import admin from "firebase-admin";
+
+
+
+
+const credential = {
+    type: "service_account",
+    project_id: "test-app-9e997",
+    private_key_id: "03afb81496732da467038c022593ce3dcfeb33b4",
+    private_key:
+      "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC5CasOvo3sEwFS\npyTWSIWnX36I0sukDEUkmKRdgxMFG4RBQhhhLCqdQmb5ICfZvxNJfmOPHzgzyMk2\nlDTIAxbj/oKfvz9Hiorht1KYxg2NetiHtCUbrlIt8qy3M9Z50nV/dDZhdE4Ozz5y\nALiJWFbwOYjsap16w6wH+YV0RgspIlfETwAXVIpK5DE7cw6j+knpM2KzddKMcetX\nCCdbVtyZ7i97Yu4VFJA3bweCOuo+Gw4uCNtfmv8a1gmgfLJp56IoC6gPK9wpA+Fn\naPTP1hlQl4WudJRdnRrLwaTkcWnSb9Q9pn53rs/fRSRFNzvLS4B/2i2dVkwf58Ee\nCwy/3izZAgMBAAECggEAA/Mv4p2wu+Rf99q3j5d2uu7v7Y3KaRMV+sUDZTeiFU7U\nEOyPRqvBsR+0wQatsxlAGSaIi4qYEYrsuKyLP+XI/E73jN9xQ16yvkTCj55Stb10\nl9kBncin2nE+vJ5vqqQSfAkIDCaGcAx+gcKALfZjzLb9tEZGXFOG/ZiW/7drD5Kx\nvlSN5Fowgz6ASfTVOFrvgSkZMYqU2yjkh289PmRfVZLwxr55X+9MRCY0UfKPo1VY\nXzBekXrXoao7Uxf87H0r70U0d7nSf/bLnBMQi6dE/xNWkR9gD1/TqQThe3BUe8Qp\nUYULr7Fit/kKnc5fndRf80hcWDRe6pgLBlgHdJn/gQKBgQD19LBH1Agx/olPCueE\ncBls3EPynGBP4ByhtdPl8sQfz+SzOibykiDwBLy/OQQiAQarnTNAmJc6KMvEt60x\nrmeHDXroohD1UWxvKcpqlk9b/TTABAguEYCIrgJa6OKbatuKIF417x+7V/abPES+\n1+98FkdQ8pLmduhr06AED56NEQKBgQDAmB7FRamCrA4dNgMufcbnpW/Unc3jtD9i\n0nhix503xFBrqSAlhh9StlyO5Dn4BIoZo4vnqO35L+o/ixBHAQSxzg0LYPmOf4U5\nuKWQIcWRh0sMlKiRthUP22gYVZ9KFjbzQOX7LWr0zlmW+EwTJX/sUhglNbQBBfZv\nwM0m8vTDSQKBgQC6eMwZeQjJlphVpAfJIhA0t36QdryScnBire88XGUTVVOoCoOy\nztVIA99x/vFCMpLzE5ji9Y1aG8n5l+QoUXjOLIstyome5B+Y3A9J5jG+pWcT2Tq2\narCPb5X7hKshd8+Alm+25lehetxN71CTfDVmV6G0HmT/c9FcxrJ/wbPMcQKBgQC8\nnv9b4zr94HY+Q5zgFo0MZ+lbiWWQwgJmTY1b6PXgHSNKHax/M5lPz4xc4caoUgHS\n1Gr76mWO7E92BkNd1vB7FzuNTl97IQcgneeAfqLZQXDOFHX3pyV/jzmmw4yq6ZDN\nslzLIBMlSUdS5UDUa6CamVhOcQcnDWjq0B/cKoxvCQKBgA1KrKd73PnKf9GTmRff\nmiB1lyrRWKsM4/tM6F2Ydd46aTd2bc7uOCfyCHRrpsGj7Uqr0Kh8bHJlWxO06gMT\nFOUiUjBJMFBbp4QTKYyjzidkmuEAEZV12MSG6Oj2tFem2Ew+SKpmwQRPx7vDccR3\no+rbOm+tMoxtq8WVshtkgj/W\n-----END PRIVATE KEY-----\n",
+    client_email: "firebase-adminsdk-lzr26@test-app-9e997.iam.gserviceaccount.com",
+    client_id: "116241382066845598417",
+    auth_uri: "https://accounts.google.com/o/oauth2/auth",
+    token_uri: "https://oauth2.googleapis.com/token",
+    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+    client_x509_cert_url:
+      "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-lzr26%40test-app-9e997.iam.gserviceaccount.com",
+    universe_domain: "googleapis.com",
+  };
+  
+  const firebaseConfig = {
+    credential: admin.credential.cert(credential),
+  };
+  
+  const firebaseApp = initializeApp(firebaseConfig),
+    messaging = getMessaging(firebaseApp);
+
+
+
+
+    
+//post Hardware Rate
+export const Rate = asyncHandler(async (req, res, next) => {
+    const { heartRate, motionRate,currentMotionRate } = req.body
+    const { patientId } = req.params
+    const patient = await patientModel.findById(patientId)
+    if (!patient) {
+        return next(new Error("Not register account", { cause: 404 }))
+    }
+    patient.heartRate = heartRate
+    patient.motionRate = motionRate
+    patient.currentMotionRate=currentMotionRate
+    await patient.save()
+    if (patient.heartRate > 130 || patient.heartRate <50 && patient.motionRate>2) {
+        
+
+
+        const patientDoctor=await doctorModel.findOne({patientId:patientId})
+        
+        const DocToken=patientDoctor.docToken
+
+        const patientGuardian=await guardianModel.findOne({patientId:patientId})
+
+
+        const GurToken=patientGuardian.gurToken
+
+        const tokens=[DocToken,GurToken]
+
+        const firebaseMessage = {
+            topic:"alarmNotification",
+         
+            android: {
+           
+            notification: {
+              title: "Title here",
+              body: "Body here",
+              visibility: "public",
+              channelId: "basic_channel",
+              sound: "alarm",
+              color: "#000000",
+              
+            },
+            data: { test: "test data" },
+           
+          },
+        };
+        
+    
+        try {
+            await messaging.subscribeToTopic(tokens,"alarmNotification"); 
+          await messaging.send(firebaseMessage);
+        
+        } catch (err) {
+          console.log("firebase messaging error:", err);
+        }
+
+
+
+
+        const patientSeizure = await seizureModel.create({
+            heartRate, motionRate, patientId: patientId 
+        })
+      
+        if (patientSeizure.type==1) {
+        patient.seizureHistory.push(patientSeizure)
+        }
+        
+        await patient.save()
+       
+      //  return res.status(200).json({ message: "Done", patientSeizure })
+ }
+    return res.status(200).json({ message: "Done", patient })
+
+})
 
 //all patient
 export const patients = asyncHandler(async (req, res, next) => {
@@ -498,36 +605,6 @@ export const deletePatient = asyncHandler(async (req, res, next) => {
     return res.status(200).json({ message: "Done patient deleted", })
 })
 
-//post Hardware Rate
-export const Rate = asyncHandler(async (req, res, next) => {
-    const { heartRate, motionRate,currentMotionRate } = req.body
-    const { patientId } = req.params
-    const patient = await patientModel.findById(patientId)
-    if (!patient) {
-        return next(new Error("Not register account", { cause: 404 }))
-    }
-    patient.heartRate = heartRate
-    patient.motionRate = motionRate
-    patient.currentMotionRate=currentMotionRate
-    await patient.save()
-    if (patient.heartRate > 130 || patient.heartRate <50 && patient.motionRate>2) {
-        
-
-        const patientSeizure = await seizureModel.create({
-            heartRate, motionRate, patientId: patientId 
-        })
-      
-        if (patientSeizure.type==1) {
-        patient.seizureHistory.push(patientSeizure)
-        }
-        
-        await patient.save()
-       
-      //  return res.status(200).json({ message: "Done", patientSeizure })
- }
-    return res.status(200).json({ message: "Done", patient })
-
-})
 
 
 
