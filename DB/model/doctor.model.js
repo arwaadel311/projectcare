@@ -28,7 +28,7 @@ const doctorSchema = new Schema({
   patientId:[{type:Types.ObjectId,ref:'Patient',default:null }],
   role:{type : String,default:'Doctor'},
   
-  docToken:{type:String}
+  docToken:{type:String,default:null}
 }, {
   timestamps: true
 });
