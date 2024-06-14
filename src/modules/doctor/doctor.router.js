@@ -3,7 +3,7 @@ import * as doctorController from "./controller/doctor.js"
 import {fileUpload,fileValidation} from '../../utils/multer.js'
 import * as validators from './doctor.validation.js'
 import {validation} from'../../middleware/validation.js'
-import {authDoctor } from "../../middleware/auth.js";
+import {authAdmin, authDoctor } from "../../middleware/auth.js";
 //import { endPoint } from "./doctor.endPoint.js";
 
 const router = Router()
