@@ -172,9 +172,9 @@ export const deleteGuardian= async (req, res, next) => {
 
     }
 
-    // const patient = await patientModel.findOne({guardianId});
-    // patient.guardianId=null
-    // await patient.save()    
+    const patient = await patientModel.findOne({guardianId});
+    patient.guardianId=null
+    await patient.save()    
     
     return res.status(200).json({ message: "Done" })
 }
