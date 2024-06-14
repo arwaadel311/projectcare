@@ -24,7 +24,7 @@ const guardianSchema = new Schema({
   status: { type: String,default: 'offline',enum: ['offline', 'online', 'block']},
   role:{type : String,default:'Guardian'},
   isLogin:{type:Boolean,default:false},
-  patientId:{type:Types.ObjectId,ref:'Patient'},
+  patientId:[{type:Types.ObjectId,ref:'Patient'}],
 
   gurToken:{type:String,default:null}  
 },{
