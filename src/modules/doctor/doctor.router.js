@@ -18,7 +18,7 @@ router.put('/update',authDoctor,doctorController.updateDoctor);
 //delete doctor
 router.delete('/:doctorId',authDoctor, doctorController.deleteDoctor);
 
-router.delete('/:doctorId',authAdmin, doctorController.deleteDoctorAdmin);
+router.delete('/delete/:doctorId',authAdmin, doctorController.deleteDoctorAdmin);
 //router.delete('/delete', authDoctor,doctorController.deleteDoctor);
 
 //profile
