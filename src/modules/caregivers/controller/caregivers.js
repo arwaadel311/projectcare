@@ -48,7 +48,7 @@ export const addPatientGuardian = asyncHandler(async (req, res, next) => {
    
     patient.guardianIds.push([req.guardian._id])
     await patient.save()
-    guardian.patientId=patientId
+    guardian.patientId.push([patientId])
     await guardian.save()
     return res.status(201).json({ message: 'Done', patient })
 })
