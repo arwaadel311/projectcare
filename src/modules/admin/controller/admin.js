@@ -122,22 +122,26 @@ export const GetAllGuardian = async (req, res, next) => {
     
 
 
+//delete users
 
-//get all doctor request
 export const deleteDoctor= async (req, res, next) => {
 
    
     const { doctorId } = req.params
-    const doctor = await doctorModel.findByIdAndDelete(doctorId)
+   // const doctor = await doctorModel.findByIdAndDelete(doctorId)
+     
+   const patient = await patientModel.updateMany({doctorId:null});
+   console.log(patient);
+
+
+   const doctor = await doctorModel.findByIdAndDelete(doctorId)
     if (!doctor) {
         return next(new Error('In-valid account', { cause: 200 }))
 
     }
     
-    // const patient = await patientModel.findOne({doctorId});
-    // patient.doctorId=null
-    // await patient.save()    
-    return res.status(200).json({ message: "Done" })
+   
+ return res.status(200).json({ message: "Done" })
 }
 
 
@@ -145,39 +149,65 @@ export const deletePatient= async (req, res, next) => {
 
    
     const { patientId } = req.params
+
+const doctors = await doctorModel.find({patientId:patientId});
+
+if (doctors.length > 0) {
+    doctors.forEach((doctor) => {
+        doctor.patientId.pull(patientId);
+        doctor.save();
+    });
+  }
+   console.log(doctors);
+
+    
+    const guardians = await guardianModel.find({patientId:patientId});
+    
+if (guardians.length > 0) {
+    guardians.forEach((guardian) => {
+        guardian.patientId.pull(patientId);
+        guardian.save();
+    });
+  }
+   console.log(guardians);
+
+
     const patient = await patientModel.findByIdAndDelete(patientId)
     if (!patient) {
         return next(new Error('In-valid account', { cause: 200 }))
 
     }
     
-    // const doctor = await doctorModel.findOne({patientId});
-    // doctor.patientId=null
-    // await doctor.save()
     
-    // const guardian = await guardianModel.findOne({patientId});
-    // guardian.patientId=null
-    // await guardian.save()
     
     return res.status(200).json({ message: "Done" })
 }
 
 export const deleteGuardian= async (req, res, next) => {
 
-   
+  
     const { guardianId } = req.params
-    const guardian = await guardianModel.findByIdAndDelete(guardianId)
+   // const doctor = await doctorModel.findByIdAndDelete(doctorId)
+     
+   const patients = await patientModel.find({guardianIds:guardianId})
+   if (patients.length > 0) {
+    patients.forEach((patient) => {
+      patient.guardianIds.pull(guardianId);
+      patient.save();
+    });
+  }
+   console.log(patients);
+
+
+   const guardian = await guardianModel.findByIdAndDelete(guardianId)
     if (!guardian) {
         return next(new Error('In-valid account', { cause: 200 }))
 
     }
-
-    // const patient = await patientModel.findOneAndDelete({guardianId});
-    // patient.guardianId=null
-    // await patient.save()    
     
     return res.status(200).json({ message: "Done" })
 }
+
 
 
 
