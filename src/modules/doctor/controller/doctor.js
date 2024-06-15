@@ -34,28 +34,27 @@ export const updateDoctor = asyncHandler(async (req, res, next) => {
     }
     return res.status(200).json({ message: "Done updated" })
 })
-// //delete doctor by id
 
-// export const updateDoctor = asyncHandler(async (req, res, next) => {
-//     const doctor = await doctorModel.findByIdAndUpdate(req.params.doctorId, req.body, { new: true });
-//     if (!doctor) {
-//         return next(new Error(`doctor not found `, { cause: 404 }))
-//     }
-//     return res.status(200).json({ message: "Done updated" })
-// })
 
-//delete doctor
+
+//delete account doctor
+
 export const deleteDoctor = asyncHandler(async (req, res, next) => {
     const { doctorId } = req.params
+    
+   const patient = await patientModel.updateMany({doctorId:null});
+  // console.log(patient);
     const doctor = await doctorModel.findByIdAndDelete(doctorId);
     if (!doctor) {
         return next(new Error(`doctor not found `, { cause: 404 }))
     }
-    const patient = await patientModel.findOne({doctorId});
-    patient.doctorId=null
-    await patient.save()
     return res.status(200).json({ message: "Done doctor deleted", })
 })
+
+
+
+
+///approvel false
 export const deleteDoctorAdmin = asyncHandler(async (req, res, next) => {
     const { doctorId } = req.params
     const doctor = await doctorModel.findByIdAndDelete(doctorId);

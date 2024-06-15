@@ -447,10 +447,24 @@ export const updateGuardian = asyncHandler(async (req, res, next) => {
     }
     return res.status(200).json({ message: "Done updated" })
 })
-//delete guardian
+
+
+
+//delete account guardian
 export const deleteGuardian = asyncHandler(async (req, res, next) => {
     const { guardianId } = req.params
  //   const guardian= await guardianModel.findByIdAndDelete(req.params.id);
+ 
+ const patients = await patientModel.find({guardianIds:guardianId})
+ if (patients.length > 0) {
+  patients.forEach((patient) => {
+    patient.guardianIds.pull(guardianId);
+    patient.save();
+  });
+}
+// console.log(patients);
+
+
  const guardian= await guardianModel.findByIdAndDelete(guardianId);
       
  if (!guardian) {

@@ -595,15 +595,44 @@ export const updatePatient = asyncHandler(async (req, res, next) => {
     }
     return res.status(200).json({ message: "Done updated" })
 })
-//delete Patient
+
+
+
+//delete Patient account
+
 export const deletePatient = asyncHandler(async (req, res, next) => {
     const {patientId}=req.params
+
+
+    
+const doctors = await doctorModel.find({patientId:patientId});
+
+if (doctors.length > 0) {
+    doctors.forEach((doctor) => {
+        doctor.patientId.pull(patientId);
+        doctor.save();
+    });
+  }
+  // console.log(doctors);
+
+    
+    const guardians = await guardianModel.find({patientId:patientId});
+    
+if (guardians.length > 0) {
+    guardians.forEach((guardian) => {
+        guardian.patientId.pull(patientId);
+        guardian.save();
+    });
+  }
+   //console.log(guardians);
+
     const patient = await patientModel.findByIdAndDelete(patientId);
     if (!patient) {
         return next(new Error(`Patient not found `, { cause: 404 }))
     }
     return res.status(200).json({ message: "Done patient deleted", })
 })
+
 
 
 

@@ -131,7 +131,7 @@ export const deleteDoctor= async (req, res, next) => {
    // const doctor = await doctorModel.findByIdAndDelete(doctorId)
      
    const patient = await patientModel.updateMany({doctorId:null});
-   console.log(patient);
+   //console.log(patient);
 
 
    const doctor = await doctorModel.findByIdAndDelete(doctorId)
@@ -158,7 +158,7 @@ if (doctors.length > 0) {
         doctor.save();
     });
   }
-   console.log(doctors);
+   //console.log(doctors);
 
     
     const guardians = await guardianModel.find({patientId:patientId});
@@ -169,7 +169,7 @@ if (guardians.length > 0) {
         guardian.save();
     });
   }
-   console.log(guardians);
+  // console.log(guardians);
 
 
     const patient = await patientModel.findByIdAndDelete(patientId)
@@ -196,7 +196,7 @@ export const deleteGuardian= async (req, res, next) => {
       patient.save();
     });
   }
-   console.log(patients);
+  // console.log(patients);
 
 
    const guardian = await guardianModel.findByIdAndDelete(guardianId)
