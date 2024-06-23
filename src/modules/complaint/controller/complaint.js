@@ -173,3 +173,22 @@ if (!await sendEmail({ to:complaint.email, subject: 'reply complaint', html })) 
  
   return res.status(200).json({ message: "Done reply",complaint })
 })
+
+
+
+////delete complaint
+
+
+export const deleteComplaint = asyncHandler(async (req, res, next) => {
+ 
+  const {  complaintId } = req.params;
+
+
+  const complaint = await complaintModel.findByIdAndDelete(complaintId)
+  if (!complaint) {
+      return next(new Error('In-valid complaint Id', { cause: 200 }))
+
+  }
+
+  return res.status(201).json({ message: 'Done' })
+});

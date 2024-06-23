@@ -33,6 +33,11 @@ complaintController.sendReply)
 
 
 
+
+router.delete('/:complaintId',authAdmin,
+
+    complaintController.deleteComplaint)
+
 export default router;
 
 
