@@ -78,7 +78,7 @@ export const Rate = asyncHandler(async (req, res, next) => {
            
             notification: {
               title: "Siezure now",
-              body: "`patient.firstName` is having a seizure",
+              body: `${patient.firstName} is having a seizure`,
               visibility: "public",
               channelId: "basic_channel",
               sound: "alarm",
