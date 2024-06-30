@@ -11,7 +11,7 @@ async function sendEmail({ to, cc, bcc, subject, html, attachments = [] } = {}) 
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
-        from: `" Hello...Arwa" <${process.env.GMAIL}>`, // sender address
+        from: `" Hello..." <${process.env.GMAIL}>`, // sender address
         to,
         cc,
         bcc,
