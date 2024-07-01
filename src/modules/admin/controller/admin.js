@@ -212,6 +212,13 @@ export const deleteGuardian= async (req, res, next) => {
 
 
 
+//profile
+export const profile = asyncHandler(async (req, res, next) => {
+
+    const admin = await adminModel.findById(req.admin._id)
+    return res.status(200).json({ message: "profile",admin })
+
+})
 
 
 

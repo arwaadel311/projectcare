@@ -24,6 +24,9 @@ validation(validators.loginAdmin),
 adminController.loginAdmin)
 
 
+//profile
+router.get("/home/profile",
+    authDoctor,doctorController.profile)
 //logout
 router.post('/logoutAdmin',authAdmin,
 adminController.logoutAdmin)
