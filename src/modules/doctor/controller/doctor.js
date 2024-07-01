@@ -69,7 +69,7 @@ export const deleteDoctorAdmin = asyncHandler(async (req, res, next) => {
 
 
 export const signupDoctor = asyncHandler(async (req, res, next) => {
-    const { firstName, lastName, clinicAddress, phone_one, phone_two, unionCard, certificate, specialization, email, password } = req.body
+    const { firstName, lastName, clinicAddress, phone_one, phone_two, specialization, email, password } = req.body
     //check email exist
     const checkDoctor = await doctorModel.findOne({ email: email.toLowerCase() })
     const checkAdmin = await adminModel.findOne({ email: email.toLowerCase() })
@@ -188,7 +188,11 @@ export const signupDoctor = asyncHandler(async (req, res, next) => {
         }
     }
     
-    const { _id } = await doctorModel.create(req.body)
+    const { _id } = await doctorModel.create({
+        firstName, lastName, clinicAddress, phone_one, phone_two,
+        certificate, unionCard,
+        emailCode, specialization, email, password: hashPassword,
+    })
     return res.status(201).json({ message: "Done", _id })
 })
 //confirm email
