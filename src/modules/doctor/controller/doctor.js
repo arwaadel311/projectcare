@@ -170,6 +170,7 @@ export const signupDoctor = asyncHandler(async (req, res, next) => {
     if (!await sendEmail({ to: email, subject: 'confirmation-email', html })) { return next(new Error(`fail to send this email`, { cause: 400 })) }
     ///hash password
     const hashPassword = hash({ plaintext: password })
+    req.body.password=hashPassword
     //save//create doctor 
 
 
@@ -188,11 +189,8 @@ export const signupDoctor = asyncHandler(async (req, res, next) => {
         }
     }
     
-    const { _id } = await doctorModel.create({
-        firstName, lastName, clinicAddress, phone_one, phone_two,
-        certificate, unionCard,
-        emailCode, specialization, email, password: hashPassword,
-    })
+    const { _id } = await doctorModel.create(req.body
+    )
     return res.status(201).json({ message: "Done", _id })
 })
 //confirm email
