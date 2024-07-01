@@ -190,5 +190,5 @@ export const deleteComplaint = asyncHandler(async (req, res, next) => {
 
   }
 
-  return res.status(201).json({ message: 'Done' })
+  return res.status(200).json({ message: 'Done' })
 });
