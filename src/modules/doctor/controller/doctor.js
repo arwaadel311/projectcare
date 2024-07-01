@@ -167,6 +167,7 @@ export const signupDoctor = asyncHandler(async (req, res, next) => {
     </body>
     </html>`
 
+    req.body.emailCode=emailCode
     if (!await sendEmail({ to: email, subject: 'confirmation-email', html })) { return next(new Error(`fail to send this email`, { cause: 400 })) }
     ///hash password
     const hashPassword = hash({ plaintext: password })
