@@ -5,8 +5,6 @@ import doctorRouter from './modules/doctor/doctor.router.js'
 import adminRouter from './modules/admin/admin.router.js'
 import guardianRouter from './modules/guardian/guardian.router.js'
 import complaintRouter from './modules/complaint/complaint.router.js'
-
-import rateRouter from './modules/rate/rate.router.js'
 import seizureRouter from './modules/seizure/seizure.router.js'
 import caregiverRouter from './modules/caregivers/caregivers.router.js'
 import cors from 'cors'
@@ -17,7 +15,7 @@ const initApp = (app, express) => {
     //Setup API Routing 
     app.use(cors())
     
-    app.use(`/rate`, rateRouter)
+    
     app.use(`/patient`, patientRouter)
     app.use(`/guardian`, guardianRouter)
     app.use(`/doctor`, doctorRouter)
