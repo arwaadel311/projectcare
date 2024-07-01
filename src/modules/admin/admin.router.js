@@ -26,7 +26,7 @@ adminController.loginAdmin)
 
 //profile
 router.get("/home/profile",
-    authDoctor,doctorController.profile)
+    authAdmin,adminController.profile)
 //logout
 router.post('/logoutAdmin',authAdmin,
 adminController.logoutAdmin)
