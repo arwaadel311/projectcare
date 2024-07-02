@@ -8,8 +8,8 @@ export const signUpPatient = joi.object({
     password: generalFields.password.required(),
     cPassword: generalFields.cPassword.valid(joi.ref("password")),
     homeAddress: joi.string().min(2).max(50).required(),
-    phone_one: joi.number().positive().required(),
-    phone_two: joi.number().positive().required(),
+    phone_one: generalFields.phoneNumber.required(),
+    phone_two: generalFields.phoneNumber.required(),
      birthDate: joi.date().required(),
     gender:joi.string().min(2).max(50).required()
 }).required()
