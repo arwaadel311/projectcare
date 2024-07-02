@@ -17,8 +17,10 @@ const doctorSchema = new Schema({
   changePasswordTime: { type: Date },
   password: { type: String, required: true, },
   clinicAddress: { type: String, required: true },
-  phone_one: {   type: String,required: true,},
-  phone_two: {type: String,required: true,},
+
+  phone_one: {   type: Number,required: true,},
+
+  phone_two: {type: Number,required: true},
   unionCard: { type: Object, required: true },
   certificate: { type: Object, required: true },
   specialization: { type: String, required: true },
