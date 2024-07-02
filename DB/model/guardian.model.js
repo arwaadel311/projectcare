@@ -14,8 +14,8 @@ const guardianSchema = new Schema({
   emailCode: { type: Number, default: null },
   verifyEmail:{type:Boolean,default:false},
   EmailPasswordCode:{type:Number,default:null},
-  phone_one: {   type: Number,required: true,},
-  phone_two: {type: Number,required: true,},
+  phone_one: {   type: String,required: true,},
+  phone_two: {type: String,required: true,},
   
   password: { type: String, required: true, },
   gender: { type: String, enum: ['Male', 'Female'], required: true, default: 'Male' },
