@@ -10,7 +10,7 @@ export const generalFields = {
     }).required(),
     password: joi.string().pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)).required(),
     cPassword: joi.string().required(),
-    phone_one: joi.string().pattern(new RegExp(/^[0-9]{10}$|^\+[0-9]{11}$/)).required(),
+    phone_one: joi.string().pattern(new RegExp(/^01[0125][0-9]{8}$/)).required(),
     phone_two:joi.string().pattern(new RegExp(/^01[0125][0-9]{8}$/)).required(),
     complaint: joi.string().required(),
     id: joi.string().custom(validateObjectId).required(),
